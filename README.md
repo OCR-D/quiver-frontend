@@ -6,11 +6,14 @@ The webapp is available over at the [OCR-D website](https://ocr-d.de/kwalitee/).
 
 ## Dependencies
 
-- $TODO$
+- Python 3.x
+- npm
 
 ## Installation
 
-$TODO$
+- clone the repository
+- switch to the cloned directory
+- execute `pip install -e .` for local installation
 
 ## Usage
 
