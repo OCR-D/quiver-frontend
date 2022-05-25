@@ -66,7 +66,7 @@ def pull_all(ctx):
     Generate JSON
 
 ''')
-@click.option('-o', '--output', help="Output file. Omit to print to STDOU")
+@click.option('-o', '--output', help="Output file. Omit to print to STDOUT")
 @pass_ctx
 def generate_json(ctx, output=None):
     ret = []
