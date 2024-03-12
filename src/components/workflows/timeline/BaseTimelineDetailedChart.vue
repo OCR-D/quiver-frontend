@@ -16,6 +16,7 @@ interface Props {
   height?: number,
   tooltipContent: (d: TimelineChartDataPoint) => string,
   yAxisTitle?: string,
+  workflow?: string,
   higherIsPositive?: boolean
 }
 
@@ -25,8 +26,25 @@ const height = props.height || 60
 const marginTop = 10
 const marginRight = 10
 const marginBottom = 30
-const marginLeft = 40
+const marginLeft = 50
 const _width = computed(() => props.width ?? 300)
+const yAxisTitle = computed(() => {
+  let text = ''
+  if (props.yAxisTitle) {
+    text = props.yAxisTitle
+
+    if (props.workflow) {
+      text += ` (${props.workflow})`
+    }
+  }
+  return text
+})
+
+const yAxisTextHeight = computed(() => {
+  let value = -(height / 2 + marginTop)
+  value -= yAxisTitle.value.length ** 1.3
+  return Math.round(value)
+})
 
 const container = ref<HTMLDivElement>()
 
@@ -74,6 +92,14 @@ function render([data, startDate, endDate, maxY]) {
   svg.select('.x-axis-group .domain').attr('stroke', colors.gray['400'])
   svg.selectAll('.x-axis-group .tick text').attr('fill', colors.gray['400'])
 
+  // Append x-axis title on the bottom
+  svg
+    .append('text')
+    .attr('x', (_width.value / 2) - marginLeft)
+    .attr('y', height + 10)
+    .text('Date')
+    .attr('fill', colors.gray['400'])
+
 // Add the y-axis.
   svg.append("g")
       .classed('y-axis-group', true)
@@ -89,9 +115,9 @@ function render([data, startDate, endDate, maxY]) {
   // Append y-axis title on the left
   svg.append("text")
       .attr("transform", "rotate(-90)")
-      .attr("y", marginLeft - 30)
-      .attr("x", -(height / 2 + marginTop) )
-      .text(props.yAxisTitle ?? '')
+      .attr("y", marginLeft - 35)
+      .attr("x", yAxisTextHeight.value )
+      .text(yAxisTitle.value)
       .attr('fill', colors.gray['400'])
 
 
