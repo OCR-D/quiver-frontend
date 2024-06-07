@@ -9,6 +9,10 @@ import { Icon } from '@iconify/vue'
 import { onMounted, nextTick, ref } from "vue"
 import { OverlayPanelDropdownStyles } from "@/helpers/pt"
 import workflowsStore from "@/store/workflows-store"
+import { useI18n } from "vue-i18n"
+import Tag from "primevue/tag"
+
+const { t } = useI18n()
 
 const props = defineProps<{
   gt: GroundTruth,
@@ -21,6 +25,48 @@ const selectedStep = ref<WorkflowStep | null>(null)
 const startDate = ref<Date>(new Date('2023-10-01'))
 const endDate = ref<Date>(new Date())
 const workflows = ref<Workflow[]>([])
+
+const metadata = [
+  {
+    label: t('url'),
+    data: props.gt.metadata.title,
+    href: props.gt.metadata.url,
+    isLink: true,
+  },
+  {
+    label: t('language', props.gt.metadata.language.length),
+    data: props.gt.metadata.language,
+    isArray: true,
+  },
+  {
+    label: t('script', props.gt.metadata.script.length),
+    data: props.gt.metadata.script,
+    isArray: true,
+  },
+  {
+    label: t('script-type'),
+    data: props.gt.metadata["script-type"],
+  },
+  {
+    label: t('license', props.gt.metadata.license.length),
+    data: props.gt.metadata.license,
+    title: 'name',
+    href: 'url',
+    isLink: true,
+    isArray: true,
+  },
+   {
+    label: t('volume'),
+    data: props.gt.metadata.volume,
+    isDict: true,
+   },
+   {
+    label: t('labelling'),
+    data: props.gt.metadata.labelling?.sort(),
+    isArray: true,
+    isLabelling: true,
+   }
+]
 
 onMounted(() => {
   workflows.value = workflowsStore.workflows
@@ -69,8 +115,10 @@ function toggleParameterOverlay(step: WorkflowStep, event: Event) {
     }"
   >
     <template v-slot:header>
-      <div class="flex w-full px-4 pb-2">
-        <h2 class="w-1/2 text-xl font-bold flex-shrink-0 truncate" :title="gt.label">{{ gt.label }}</h2>
+      <div class="flex w-full px-4 pb-2 flex-wrap">
+        <div class="w-1/2 flex">
+          <h2 class="w-full flex-shrink-0 text-xl font-bold truncate" :title="gt.label">{{ gt.label }}</h2>
+        </div>
         <div class="w-1/2 flex justify-end">
           <div class="flex overflow-x-auto">
             <MetricAverageChart
@@ -85,6 +133,36 @@ function toggleParameterOverlay(step: WorkflowStep, event: Event) {
             />
           </div>
         </div>
+        <div class="flex-col">
+        <div v-for="meta in metadata">
+            <p class="flex flex-wrap">
+              <span class="mr-2">{{ meta.label }}:</span>
+              <a v-if="meta.isLink && meta.isArray" v-for="data in meta.data" :href="data[meta.href as keyof typeof data]" class="flex items-center justify-start mr-2 text-highlight">
+                <Icon icon="ci:external-link" class="mr-1"/>
+                <span>{{ data[meta.title as keyof typeof data] }}</span>
+              </a>
+              <a v-else-if="meta.isLink && !meta.isArray" :href="meta.href" class="flex items-center justify-start mr-2 text-highlight">
+                <Icon icon="ci:external-link" class="mr-1"/>
+                <span>{{ meta.data }}</span>
+              </a>
+              <div v-else-if="meta.isLabelling" class="flex flex-wrap pr-4 justify-start items-center gap-1">
+                <Tag v-for="data in meta.data" :value="data" unstyled class="text-xs p-1 bg-gray-200 rounded-lg"></Tag>
+              </div>
+              <span v-else-if="meta.isArray">{{ meta.data?.join(', ') }}</span>
+              <div v-else-if="meta.isDict" class="flex flex-row space-x-2 px-2">
+                <span v-for="(value, key, index) in meta.data">
+                  <ul class="border-b-2">
+                    {{ key }}
+                  </ul>
+                  <ul>
+                    {{ value }}
+                  </ul>
+                </span>
+              </div>
+              <span v-else>{{ meta.data }}</span>
+            </p>
+          </div>
+          </div>
       </div>
     </template>
     <template v-slot:default>
@@ -104,7 +182,7 @@ function toggleParameterOverlay(step: WorkflowStep, event: Event) {
               <span
                   v-for="step in workflow.steps"
                   :key="step.id"
-                  class="p-1 cursor-pointer"
+                  class="p-1 cursor-pointer text-highlight"
                   @click="toggleParameterOverlay(step, $event)"
               >
               {{ getStepAcronym(step.id) }}
@@ -156,7 +234,7 @@ function toggleParameterOverlay(step: WorkflowStep, event: Event) {
 </template>
 
 <style scoped lang="scss">
-span:hover {
+.text-highlight:hover {
   color: var(--highlight-text-color);
 }
 </style>

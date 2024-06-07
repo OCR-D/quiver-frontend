@@ -58,5 +58,12 @@
   "worse": "worse",
   "percentage": "percentage",
   "pages": "pages",
-  "seconds": "seconds"
+  "seconds": "seconds",
+  "url": "URL",
+  "language": "Language | Languages",
+  "script": "Script | Scripts",
+  "script-type": "Script-Type",
+  "license": "License | Licenses",
+  "volume": "Volume",
+  "labelling": "Labelling"
 }

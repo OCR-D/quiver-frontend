@@ -61,5 +61,15 @@
   "negative": "negativ",
   "better": "besser",
   "equal": "gleich",
-  "worse": "schlechter"
+  "worse": "schlechter",
+  "percentage": "Prozent",
+  "pages": "Seiten",
+  "seconds": "Sekunden",
+  "url": "URL",
+  "language": "Sprache | Sprachen",
+  "script": "Skript | Skripte",
+  "scripttype": "Skript-Typ",
+  "license": "Lizenz | Lizenzen",
+  "volume": "Umfang",
+  "labelling": "Kennzeichnung"
 }
