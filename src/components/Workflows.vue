@@ -8,6 +8,7 @@
   import Filters from "@/components/workflows/filters/Filters.vue"
   import SelectButton from "primevue/selectbutton"
   import WorkflowsTimeline from "@/components/workflows/WorkflowsTimeline.vue"
+  import WorkflowsIntroSection from "@/components/workflows/WorkflowsIntroSection.vue"
   import filtersStore from "@/store/filters-store"
   import workflowsStore from "@/store/workflows-store"
   import type { ReleaseInfo } from "@/types";
@@ -78,6 +79,7 @@
     <div class="flex mb-6">
       <p class="text-amber-600 flex-grow-0 px-4 py-2 bg-amber-100 rounded-md text-sm"><span class="font-semibold">Disclaimer:</span> This is an experimental view.</p>
     </div>
+    <WorkflowsIntroSection :page="<'timeline'|'table'>selectedOption.value" class="mb-6"></WorkflowsIntroSection>
     <div class="flex mb-6">
       <SelectButton v-model="selectedOption" :options="options" optionLabel="name"></SelectButton>
       <Filters class="ml-auto"/>
