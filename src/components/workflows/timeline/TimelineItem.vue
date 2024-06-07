@@ -133,10 +133,10 @@ function toggleParameterOverlay(step: WorkflowStep, event: Event) {
             />
           </div>
         </div>
-        <div class="flex-col">
-        <div v-for="meta in metadata">
+        <div class="sm:grid sm:grid-cols-2 sm:gap-2 lg:grid-cols-3 flex flex-col w-full overflow-x-auto pt-2">
+          <div v-for="meta in metadata" :class="{'sm:col-span-2 lg:col-span-3': meta.isLabelling || meta.isDict}">
             <p class="flex flex-wrap">
-              <span class="mr-2">{{ meta.label }}:</span>
+              <span class="mr-2 font-semibold">{{ meta.label }}:</span>
               <a v-if="meta.isLink && meta.isArray" v-for="data in meta.data" :href="data[meta.href as keyof typeof data]" class="flex items-center justify-start mr-2 text-highlight">
                 <Icon icon="ci:external-link" class="mr-1"/>
                 <span>{{ data[meta.title as keyof typeof data] }}</span>
@@ -162,7 +162,7 @@ function toggleParameterOverlay(step: WorkflowStep, event: Event) {
               <span v-else>{{ meta.data }}</span>
             </p>
           </div>
-          </div>
+        </div>
       </div>
     </template>
     <template v-slot:default>
