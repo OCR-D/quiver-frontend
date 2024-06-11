@@ -65,5 +65,6 @@
   "script-type": "Script-Type",
   "license": "License | Licenses",
   "volume": "Volume",
-  "labelling": "Labelling"
+  "labelling": "Labelling",
+  "no_labels_for_this_entry": "No labels for this entry."
 }

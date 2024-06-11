@@ -10,7 +10,6 @@ import { onMounted, nextTick, ref } from "vue"
 import { OverlayPanelDropdownStyles } from "@/helpers/pt"
 import workflowsStore from "@/store/workflows-store"
 import { useI18n } from "vue-i18n"
-import Tag from "primevue/tag"
 
 const { t } = useI18n()
 
@@ -20,6 +19,7 @@ const props = defineProps<{
 }>()
 
 const op = ref<OverlayPanel>()
+const opLabelling = ref()
 const isOpVisible = ref(false)
 const selectedStep = ref<WorkflowStep | null>(null)
 const startDate = ref<Date>(new Date('2023-10-01'))
@@ -59,12 +59,6 @@ const metadata = [
     label: t('volume'),
     data: props.gt.metadata.volume,
     isDict: true,
-   },
-   {
-    label: t('labelling'),
-    data: props.gt.metadata.labelling?.sort(),
-    isArray: true,
-    isLabelling: true,
    }
 ]
 
@@ -96,6 +90,9 @@ function toggleParameterOverlay(step: WorkflowStep, event: Event) {
   } else {
     showParametersOverlay(step, event)
   }
+}
+function toggleOpLabelling(event: any) {
+  opLabelling.value?.toggle(event)
 }
 
 </script>
@@ -134,23 +131,24 @@ function toggleParameterOverlay(step: WorkflowStep, event: Event) {
           </div>
         </div>
         <div class="sm:grid sm:grid-cols-2 sm:gap-2 lg:grid-cols-3 flex flex-col w-full overflow-x-auto pt-2">
-          <div v-for="meta in metadata" :class="{'sm:col-span-2 lg:col-span-3': meta.isLabelling || meta.isDict}">
-            <p class="flex flex-wrap">
+          <div v-for="meta in metadata" :key="meta.label" :class="{'sm:col-span-2 lg:col-span-3': meta.isDict}">
+            <div class="flex flex-wrap">
               <span class="mr-2 font-semibold">{{ meta.label }}:</span>
-              <a v-if="meta.isLink && meta.isArray" v-for="data in meta.data" :href="data[meta.href as keyof typeof data]" class="flex items-center justify-start mr-2 text-highlight">
-                <Icon icon="ci:external-link" class="mr-1"/>
-                <span>{{ data[meta.title as keyof typeof data] }}</span>
-              </a>
+              <div v-if="meta.isLink && meta.isArray">
+                <a v-for="data in meta.data" :key="data.name" :href="data[meta.href as keyof typeof data]" class="flex items-center justify-start mr-2 text-highlight">
+                  <Icon icon="ci:external-link" class="mr-1"/>
+                  <span>{{ data[meta.title as keyof typeof data] }}</span>
+                </a>
+              </div>
               <a v-else-if="meta.isLink && !meta.isArray" :href="meta.href" class="flex items-center justify-start mr-2 text-highlight">
                 <Icon icon="ci:external-link" class="mr-1"/>
                 <span>{{ meta.data }}</span>
               </a>
-              <div v-else-if="meta.isLabelling" class="flex flex-wrap pr-4 justify-start items-center gap-1">
-                <Tag v-for="data in meta.data" :value="data" unstyled class="text-xs p-1 bg-gray-200 rounded-lg"></Tag>
-              </div>
               <span v-else-if="meta.isArray">{{ meta.data?.join(', ') }}</span>
               <div v-else-if="meta.isDict" class="flex flex-row space-x-2 px-2">
-                <span v-for="(value, key, index) in meta.data">
+                <!-- eslint-disable vue/no-unused-vars -->
+                <span v-for="(value, key, _) in meta.data" :key="key">
+                  <!-- eslint-enable -->
                   <ul class="border-b-2">
                     {{ key }}
                   </ul>
@@ -160,9 +158,26 @@ function toggleParameterOverlay(step: WorkflowStep, event: Event) {
                 </span>
               </div>
               <span v-else>{{ meta.data }}</span>
-            </p>
+            </div>
           </div>
         </div>
+        <button class="font-semibold my-2 flex items-center text-highlight" @click="toggleOpLabelling">
+          <span>{{ $t('labelling') }}</span>
+          <Icon v-if="opLabelling?.visible" icon="ic:baseline-close-fullscreen" class="ml-2"></Icon>
+          <Icon v-else icon="ic:baseline-open-in-full" class="ml-2"></Icon>
+        </button>
+        <OverlayPanel ref="opLabelling" unstyled :pt="OverlayPanelDropdownStyles">
+          <template #container>
+            <div v-if="gt.metadata.labelling?.length > 0" class="flex flex-col py-1 space-y-1 overflow-y-scroll max-w-[80vw] sm:max-w-[90vw] max-h-[300px]">
+              <span v-for="label in gt.metadata.labelling.slice(0).sort()" :key="label" class="hover:bg-gray-200 rounded px-2">
+                {{ label }}
+              </span>
+            </div>
+            <div v-else class="py-1 px-2">
+              <span>{{ $t('no_labels_for_this_entry') }}</span>
+            </div>
+          </template>
+        </OverlayPanel>
       </div>
     </template>
     <template v-slot:default>

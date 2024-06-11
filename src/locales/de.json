@@ -71,5 +71,6 @@
   "scripttype": "Skript-Typ",
   "license": "Lizenz | Lizenzen",
   "volume": "Umfang",
-  "labelling": "Kennzeichnung"
+  "labelling": "Kennzeichnung",
+  "no_labels_for_this_entry": "Keine Kennzeichnung für diesen Eintrag."
 }
