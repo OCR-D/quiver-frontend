@@ -107,6 +107,7 @@ export interface FilterOption {
 export interface ReleaseInfo {
   id: number,
   published_at: string,
-  tag_name: string
+  tag_name: string,
+  html_url: string
 }
 

@@ -201,6 +201,7 @@ function render([data, startDate, endDate, maxY]) {
       .style("fill", 'white')
 
     group
+      .append("svg:a").attr("xlink:href", () => { return release.html_url})
       .append("text")
       .classed('tag-name', true)
       .attr("y", y(maxY))
