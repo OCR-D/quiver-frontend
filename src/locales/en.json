@@ -58,5 +58,11 @@
   "worse": "worse",
   "percentage": "percentage",
   "pages": "pages",
-  "seconds": "seconds"
+  "seconds": "seconds",
+  "workflows_intro_text": "This is an OCR-D benchmarking dashboard. It gives you an overview of the various ground truth documents, with the respective workflows performed and processors used, and the resulting values for various metrics.",
+  "workflows_intro_additional_text_timeline": "The timeline shows the history of the values for all OCR-D core releases.",
+  "workflows_intro_additional_infos": "For more information see the OCR-D website {ocrd_link}.",
+  "ocrd_link": "https://ocr-d.de/en/",
+  "workflows_intro_gt_guidelines": "The OCR-D Ground Truth Guidelines can be found under {gt_guidelines_link}.",
+  "gt_guidelines_link": "https://ocr-d.de/en/gt-guidelines/trans/"
 }
