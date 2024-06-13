@@ -146,9 +146,7 @@ function toggleOpLabelling(event: any) {
               </a>
               <span v-else-if="meta.isArray">{{ meta.data?.join(', ') }}</span>
               <div v-else-if="meta.isDict" class="flex flex-row space-x-2 px-2">
-                <!-- eslint-disable vue/no-unused-vars -->
-                <span v-for="(value, key, _) in meta.data" :key="key">
-                  <!-- eslint-enable -->
+                <span v-for="(value, key) in meta.data" :key="key">
                   <ul class="border-b-2">
                     {{ key }}
                   </ul>
