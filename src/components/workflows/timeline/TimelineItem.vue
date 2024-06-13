@@ -135,12 +135,12 @@ function toggleOpLabelling(event: any) {
             <div class="flex flex-wrap">
               <span class="mr-2 font-semibold">{{ meta.label }}:</span>
               <div v-if="meta.isLink && meta.isArray">
-                <a v-for="data in meta.data" :key="data.name" :href="data[meta.href as keyof typeof data]" class="flex items-center justify-start mr-2 text-highlight">
+                <a v-for="data in meta.data" :key="data.name" :href="data[meta.href as keyof typeof data]" target="_blank" class="flex items-center justify-start mr-2 text-highlight">
                   <Icon icon="ci:external-link" class="mr-1"/>
                   <span>{{ data[meta.title as keyof typeof data] }}</span>
                 </a>
               </div>
-              <a v-else-if="meta.isLink && !meta.isArray" :href="meta.href" class="flex items-center justify-start mr-2 text-highlight">
+              <a v-else-if="meta.isLink && !meta.isArray" :href="meta.href" target="_blank" class="flex items-center justify-start mr-2 text-highlight">
                 <Icon icon="ci:external-link" class="mr-1"/>
                 <span>{{ meta.data }}</span>
               </a>
