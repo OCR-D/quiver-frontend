@@ -10,6 +10,7 @@ export default reactive<{
   gt: GroundTruth[],
   workflows: Workflow[],
   runs: EvaluationRun[],
+  latestRuns: EvaluationRun[],
   releases: ReleaseInfo[],
   getRuns: (gtId: string, workflowId?: string) => EvaluationRun[]
   getLatestRuns: () => EvaluationRun[],
@@ -19,6 +20,7 @@ export default reactive<{
   gt: [],
   workflows: [],
   runs: [],
+  latestRuns: [],
   releases: [],
   getRuns(gtId: string, workflowId?: string) {
     return this.runs
@@ -32,12 +34,7 @@ export default reactive<{
       )
   },
   getLatestRuns() {
-    const dates = Object.keys(this.runs.reduce((acc, cur) => {
-      acc[normalizeDate(cur.metadata.timestamp)] = null
-      return acc
-    }, <{ [key: string]: null}>{}))
-
-    return this.runs.filter(({ metadata }) => normalizeDate(metadata.timestamp) === dates[dates.length - 1])
+    return this.latestRuns
   },
   getGtById(id: string): GroundTruth | null {
     return this.gt.find((item) => item.id === id) ?? null

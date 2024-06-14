@@ -39,7 +39,7 @@ async function getLatestRuns(gtId?: string, workflowId?: string): Promise<Evalua
 
     path += '/latest'
 
-    return await request(path)
+    return (await request(path)).flat(1)
 }
 
 async function request (url: string) {
