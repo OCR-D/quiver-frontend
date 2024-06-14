@@ -18,7 +18,6 @@ const props = defineProps<{
 }>()
 
 const op = ref<OverlayPanel>()
-const opLabelling = ref()
 const isOpVisible = ref(false)
 const selectedStep = ref<WorkflowStep | null>(null)
 const startDate = ref<Date>(new Date('2023-10-01'))
