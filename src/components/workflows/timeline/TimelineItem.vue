@@ -10,6 +10,7 @@ import { onMounted, nextTick, ref } from "vue"
 import { OverlayPanelDropdownStyles } from "@/helpers/pt"
 import workflowsStore from "@/store/workflows-store"
 import { useI18n } from "vue-i18n"
+import Button from "primevue/button"
 
 const { t } = useI18n()
 
@@ -160,11 +161,15 @@ function toggleOpLabelling(event: any) {
               </div>
             </div>
           </div>
-          <button class="font-medium text-sm my-2 flex items-center text-highlight" @click="toggleOpLabelling">
+          <Button @click="toggleOpLabelling" 
+            unstyled
+            :pt="{ 
+            root: 'text-sm my-2 flex items-center bg-gray-100 text-slate-700 p-2 hover:bg-gray-200 rounded hover:text-black focus:outline-none'
+          }">
             <span>{{ $t('labelling') }}</span>
             <Icon v-if="opLabelling?.visible" icon="ic:baseline-close-fullscreen" class="ml-2"></Icon>
             <Icon v-else icon="ic:baseline-open-in-full" class="ml-2"></Icon>
-          </button>
+          </Button>
           <OverlayPanel ref="opLabelling" unstyled :pt="OverlayPanelDropdownStyles">
             <template #container>
               <div v-if="gt.metadata.labelling?.length > 0" class="flex flex-col py-1 space-y-1 overflow-y-scroll max-w-[80vw] sm:max-w-[90vw] max-h-[300px]">
