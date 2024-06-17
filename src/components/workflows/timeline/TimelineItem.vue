@@ -91,9 +91,7 @@ function toggleParameterOverlay(step: WorkflowStep, event: Event) {
             />
           </div>
         </div>
-        <div class="pt-6 pb-4 w-full xl:w-1/2">
-          <TimelineItemMetadata :gtMetadata="gt.metadata"/>
-        </div>
+        <TimelineItemMetadata :gtMetadata="gt.metadata"/>
       </div>
     </template>
     <template v-slot:default>
