@@ -119,14 +119,14 @@ const groupByDocuments = () => {
     Loading...
   </template>
   <template v-else>
-    <div class="flex flex-col" v-if="evals.length > 0">
+    <div class="flex flex-col" v-if="Object.keys(groupedData).length > 0">
       <div class="flex items-center mb-4 ml-auto">
         <p class="mr-2">{{ $t('group_by') }}:</p>
         <Dropdown v-model="sortBy" :options="sortOptions" optionLabel="label" placeholder="Choose something.." class="" />
       </div>
       <TrendLegend :show-text-colors="false" class="ml-auto mb-4"/>
     </div>
-    <table v-if="evals.length > 0" class="w-full border border-collapse rounded text-sm">
+    <table v-if="Object.keys(groupedData).length > 0" class="w-full border border-collapse rounded text-sm">
       <thead>
       <tr>
         <th class="p-2 border">{{ sortBy.value === 'documents' ? $t('documents') : $t('workflows') }}</th>
@@ -168,7 +168,7 @@ const groupByDocuments = () => {
       </template>
       </tbody>
     </table>
-    <div v-else>{{ $t('no_table_data') }}</div>
+    <div v-else class="mt-12 mb-6">{{ $t('no_documents_selected') }}</div>
   </template>
 </template>
 
