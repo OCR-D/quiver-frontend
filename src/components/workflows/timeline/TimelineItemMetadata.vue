@@ -17,7 +17,7 @@ const opLabelling = ref()
 const opVolume = ref()
 const volumeMetadata = {
     label: t('volume'),
-    data: props.gtMetadata.volume,
+    data: Array.isArray(props.gtMetadata.volume) ? props.gtMetadata.volume.reduce((acc, curr) => ({...acc, [curr.metric]: curr.count}), {}) : props.gtMetadata.volume,
 }
 
 const metadata = [

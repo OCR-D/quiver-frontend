@@ -19,7 +19,11 @@ export interface GroundTruth {
       NoiseRegion?: string,
       TextLine?: string,
       Page?: string,
-    }
+    } |
+    {
+      metric: string,
+      count: number,
+    }[]
     labelling: string[],
   }
 }
