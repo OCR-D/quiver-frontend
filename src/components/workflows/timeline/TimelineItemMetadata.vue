@@ -22,12 +22,6 @@ const volumeMetadata = {
 
 const metadata = [
   {
-    label: t('url'),
-    data: props.gtMetadata.title,
-    href: props.gtMetadata.url,
-    isLink: true,
-  },
-  {
     label: t('language', props.gtMetadata.language.length),
     data: props.gtMetadata.language,
     isArray: true,
@@ -41,14 +35,6 @@ const metadata = [
     label: t('script-type'),
     data: props.gtMetadata["script-type"],
   },
-  {
-    label: t('license', props.gtMetadata.license.length),
-    data: props.gtMetadata.license,
-    title: 'name',
-    href: 'url',
-    isLink: true,
-    isArray: true,
-  }
 ]
 
 function toggleOpLabelling(event: any) {
@@ -61,9 +47,9 @@ function toggleOpVolume(event: any) {
 
 </script>
 <template>
-  <div class="sm:grid sm:grid-cols-2 sm:gap-4 lg:grid-cols-5 flex flex-col overflow-x-auto text-sm text-slate-700 pt-6 w-full">
+  <div class="flex space-x-5 items-start text-sm text-slate-700 w-full">
     <div v-for="meta in metadata" :key="meta.label" :class="{'sm:col-span-2 lg:col-span-3': meta.isDict}">
-      <div class="flex flex-wrap">
+      <div class="flex flex-col">
         <span class="mr-2 font-medium">{{ meta.label }}:</span>
         <div v-if="meta.isLink && meta.isArray">
           <a v-for="data in meta.data" :key="data.name" :href="data[meta.href as keyof typeof data]" target="_blank" class="flex items-center justify-start mr-2 text-highlight">
@@ -76,31 +62,28 @@ function toggleOpVolume(event: any) {
           <span>{{ meta.data }}</span>
         </a>
         <span v-else-if="meta.isArray">{{ meta.data?.join(', ') }}</span>
-<!--        <div v-else-if="meta.isDict" class="flex flex-row space-x-2 px-2">-->
-<!--          -->
-<!--        </div>-->
         <span v-else>{{ meta.data }}</span>
       </div>
     </div>
-  </div>
-  <Button @click="toggleOpLabelling"
-    unstyled
-    :pt="{
-    root: 'text-sm my-2 flex items-center bg-gray-100 text-slate-700 p-2 hover:bg-gray-200 rounded hover:text-black focus:outline-none'
+    <Button @click="toggleOpLabelling"
+            unstyled
+            :pt="{
+    root: 'text-sm flex items-center bg-gray-100 text-slate-700 p-2 hover:bg-gray-200 rounded hover:text-black focus:outline-none'
   }">
-    <span>{{ $t('labelling') }}</span>
-    <Icon v-if="opLabelling?.visible" icon="ic:baseline-close-fullscreen" class="ml-2"></Icon>
-    <Icon v-else icon="ic:baseline-open-in-full" class="ml-2"></Icon>
-  </Button>
+      <span>{{ $t('labelling') }}</span>
+      <Icon v-if="opLabelling?.visible" icon="ic:baseline-close-fullscreen" class="ml-2"></Icon>
+      <Icon v-else icon="ic:baseline-open-in-full" class="ml-2"></Icon>
+    </Button>
 
-  <Button @click="toggleOpVolume"
-    unstyled
-    :pt="{ root: 'text-sm my-2 ml-2 flex items-center bg-gray-100 text-slate-700 p-2 hover:bg-gray-200 rounded hover:text-black focus:outline-none'}"
-  >
-    <span>{{ $t('volume') }}</span>
-    <Icon v-if="opVolume?.visible" icon="ic:baseline-close-fullscreen" class="ml-2"></Icon>
-    <Icon v-else icon="ic:baseline-open-in-full" class="ml-2"></Icon>
-  </Button>
+    <Button @click="toggleOpVolume"
+            unstyled
+            :pt="{ root: 'text-sm flex items-center bg-gray-100 text-slate-700 p-2 hover:bg-gray-200 rounded hover:text-black focus:outline-none'}"
+    >
+      <span>{{ $t('volume') }}</span>
+      <Icon v-if="opVolume?.visible" icon="ic:baseline-close-fullscreen" class="ml-2"></Icon>
+      <Icon v-else icon="ic:baseline-open-in-full" class="ml-2"></Icon>
+    </Button>
+  </div>
 
   <OverlayPanel ref="opLabelling" unstyled :pt="OverlayPanelDropdownStyles">
     <template #container>

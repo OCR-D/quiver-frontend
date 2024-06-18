@@ -73,5 +73,7 @@
   "license": "License | Licenses",
   "volume": "Volume",
   "labelling": "Labelling",
-  "no_labels_for_this_entry": "No labels for this entry."
+  "no_labels_for_this_entry": "No labels for this entry.",
+  "average_timeline": "Average Timeline"
+
 }

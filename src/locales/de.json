@@ -79,5 +79,6 @@
   "license": "Lizenz | Lizenzen",
   "volume": "Umfang",
   "labelling": "Kennzeichnung",
-  "no_labels_for_this_entry": "Keine Kennzeichnung für diesen Eintrag."
+  "no_labels_for_this_entry": "Keine Kennzeichnung für diesen Eintrag.",
+  "average_timeline": "Chronik (Durchschnitt)"
 }
