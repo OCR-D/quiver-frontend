@@ -47,28 +47,18 @@ function toggleOpVolume(event: any) {
 
 </script>
 <template>
-  <div class="flex space-x-5 items-start text-sm text-slate-700 w-full">
-    <div v-for="meta in metadata" :key="meta.label" :class="{'sm:col-span-2 lg:col-span-3': meta.isDict}">
+  <div class="flex flex-wrap md:grid md:grid-cols-3 md:space-x-0 md:gap-2 lg:flex lg:space-x-5 lg:flex-nowrap items-start text-sm text-slate-700">
+    <div v-for="meta in metadata" :key="meta.label" class="mr-5 mb-5 md:mr-0 md:mb-0">
       <div class="flex flex-col">
-        <span class="mr-2 font-medium">{{ meta.label }}:</span>
-        <div v-if="meta.isLink && meta.isArray">
-          <a v-for="data in meta.data" :key="data.name" :href="data[meta.href as keyof typeof data]" target="_blank" class="flex items-center justify-start mr-2 text-highlight">
-            <Icon icon="ci:external-link" class="mr-1"/>
-            <span>{{ data[meta.title as keyof typeof data] }}</span>
-          </a>
-        </div>
-        <a v-else-if="meta.isLink && !meta.isArray" :href="meta.href" target="_blank" class="flex items-center justify-start mr-2 text-highlight">
-          <Icon icon="ci:external-link" class="mr-1"/>
-          <span>{{ meta.data }}</span>
-        </a>
-        <span v-else-if="meta.isArray">{{ meta.data?.join(', ') }}</span>
+        <span class="font-medium">{{ meta.label }}:</span>
+        <span v-if="meta.isArray">{{ meta.data?.join(', ') }}</span>
         <span v-else>{{ meta.data }}</span>
       </div>
     </div>
     <Button @click="toggleOpLabelling"
             unstyled
             :pt="{
-    root: 'text-sm flex items-center bg-gray-100 text-slate-700 p-2 hover:bg-gray-200 rounded hover:text-black focus:outline-none'
+    root: 'text-sm mr-5 md:mr-0 flex items-center bg-gray-100 text-slate-700 p-2 hover:bg-gray-200 rounded hover:text-black focus:outline-none'
   }">
       <span>{{ $t('labelling') }}</span>
       <Icon v-if="opLabelling?.visible" icon="ic:baseline-close-fullscreen" class="ml-2"></Icon>

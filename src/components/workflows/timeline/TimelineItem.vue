@@ -85,11 +85,11 @@ function toggleParameterOverlay(step: WorkflowStep, event: Event) {
             <span class="text-xs">{{ gt.metadata.license[0].name }}</span>
           </a>
         </div>
-        <div class="flex mt-6">
-          <div class="w-1/2">
+        <div class="flex mt-6 md:flex-row flex-col">
+          <div class="md:w-1/2 mb-5 md:mb-0">
             <TimelineItemMetadata :gtMetadata="gt.metadata"/>
           </div>
-          <div class="w-1/2 flex flex-col overflow-x-auto items-end">
+          <div class="md:w-1/2 flex flex-col overflow-x-auto md:items-end">
             <h3 class="font-bold pr-[240px] mb-2">{{$t('average_timeline')}}</h3>
             <MetricAverageChart
               :workflow-name="$t('average')"
