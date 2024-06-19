@@ -65,7 +65,7 @@ function tooltipContent(d: TimelineChartDataPoint) {
 </script>
 
 <template>
-  <div @click="op?.toggle($event)" class="cursor-pointer flex justify-end">
+  <div @click="op?.toggle($event)" class="cursor-pointer flex">
     <BaseTimelineChart
       :data="data"
       :max-y="maxY"

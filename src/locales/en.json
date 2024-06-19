@@ -65,5 +65,15 @@
   "workflows_intro_gt_guidelines": "The OCR-D Ground Truth Guidelines can be found under {gt_guidelines_link}.",
   "gt_guidelines_link": "https://ocr-d.de/en/gt-guidelines/trans/",
   "no_documents_selected": "No documents (Ground Truth) are selected. Please select all or specific ground truths.",
-  "error_please_try_again_later": "An error has occurred. Please try again later!"
+  "error_please_try_again_later": "An error has occurred. Please try again later!",
+  "url": "URL",
+  "language": "Language | Languages",
+  "script": "Script | Scripts",
+  "script-type": "Script-Type",
+  "license": "License | Licenses",
+  "volume": "Volume",
+  "labelling": "Labelling",
+  "no_labels_for_this_entry": "No labels for this entry.",
+  "average_timeline": "Average Timeline"
+
 }

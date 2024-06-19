@@ -71,5 +71,14 @@
   "workflows_intro_gt_guidelines": "Die OCR-D Ground Truth Richtlinien können unter {gt_guidelines_link} abgerufen werden.",
   "gt_guidelines_link": "https://ocr-d.de/de/gt-guidelines/trans/",
   "no_documents_selected": "Es sind keine Dokumente (Ground Truth) ausgewählt. Bitte wählen Sie alle oder spezifische Ground Truths aus.",
-  "error_please_try_again_later": "Es ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut!"
+  "error_please_try_again_later": "Es ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut!",
+  "url": "URL",
+  "language": "Sprache | Sprachen",
+  "script": "Skript | Skripte",
+  "scripttype": "Skript-Typ",
+  "license": "Lizenz | Lizenzen",
+  "volume": "Umfang",
+  "labelling": "Kennzeichnung",
+  "no_labels_for_this_entry": "Keine Kennzeichnung für diesen Eintrag.",
+  "average_timeline": "Chronik (Durchschnitt)"
 }

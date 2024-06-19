@@ -1,6 +1,31 @@
 export interface GroundTruth {
   id: string,
-  label: string
+  label: string,
+  metadata: {
+    title: string,
+    url: string,
+    language: string[],
+    script: string[],
+    'script-type': string,
+    license: {
+      name: string,
+      url: string,
+    }[],
+    volume: {
+      TxtRegion?: string,
+      GraphRegion?: string,
+      SepRegion?: string,
+      MusicRegion?: string,
+      NoiseRegion?: string,
+      TextLine?: string,
+      Page?: string,
+    } |
+    {
+      metric: string,
+      count: number,
+    }[]
+    labelling: string[],
+  }
 }
 
 export interface Workflow {

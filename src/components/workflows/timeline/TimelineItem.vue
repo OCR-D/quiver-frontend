@@ -9,6 +9,8 @@ import { Icon } from '@iconify/vue'
 import { onMounted, nextTick, ref } from "vue"
 import { OverlayPanelDropdownStyles } from "@/helpers/pt"
 import workflowsStore from "@/store/workflows-store"
+import TimelineItemMetadata from "@/components/workflows/timeline/TimelineItemMetadata.vue"
+
 
 const props = defineProps<{
   gt: GroundTruth,
@@ -21,6 +23,7 @@ const selectedStep = ref<WorkflowStep | null>(null)
 const startDate = ref<Date>(new Date('2023-10-01'))
 const endDate = ref<Date>(new Date())
 const workflows = ref<Workflow[]>([])
+
 
 onMounted(() => {
   workflows.value = workflowsStore.workflows
@@ -52,6 +55,7 @@ function toggleParameterOverlay(step: WorkflowStep, event: Event) {
   }
 }
 
+
 </script>
 
 <template>
@@ -69,10 +73,24 @@ function toggleParameterOverlay(step: WorkflowStep, event: Event) {
     }"
   >
     <template v-slot:header>
-      <div class="flex w-full px-4 pb-2">
-        <h2 class="w-1/2 text-xl font-bold flex-shrink-0 truncate" :title="gt.label">{{ gt.label }}</h2>
-        <div class="w-1/2 flex justify-end">
-          <div class="flex overflow-x-auto">
+      <div class="flex flex-col px-4 pb-2">
+        <div class="flex items-center overflow-hidden">
+          <h2 class="text-xl font-bold truncate mr-8" :title="gt.label">{{ gt.label }}</h2>
+          <a :href="gt.metadata.url" class="text-gray-500 hover:text-gray-600 flex-shrink-0 ml-auto mr-2 flex items-center bg-gray-100 rounded-full py-1 px-2">
+            <Icon icon="mdi:github" class="text-xl mr-1"/>
+            <span class="text-xs">{{ gt.metadata.title }}</span>
+          </a>
+          <a :href="gt.metadata.license[0].url" class="text-gray-500 hover:text-gray-600 flex-shrink-0 flex items-center bg-gray-100 rounded-full py-1 px-2">
+            <Icon icon="octicon:law" class="text-xl mr-1"/>
+            <span class="text-xs">{{ gt.metadata.license[0].name }}</span>
+          </a>
+        </div>
+        <div class="flex mt-6 md:flex-row flex-col">
+          <div class="md:w-1/2 mb-5 md:mb-0">
+            <TimelineItemMetadata :gtMetadata="gt.metadata"/>
+          </div>
+          <div class="md:w-1/2 flex flex-col overflow-x-auto md:items-end">
+            <h3 class="font-bold pr-[240px] mb-2">{{$t('average_timeline')}}</h3>
             <MetricAverageChart
               :workflow-name="$t('average')"
               :gt-name="gt.label"
@@ -82,9 +100,10 @@ function toggleParameterOverlay(step: WorkflowStep, event: Event) {
               :width="400"
               :start-date="startDate"
               :end-date="endDate"
-            />
+          />
           </div>
         </div>
+
       </div>
     </template>
     <template v-slot:default>
@@ -104,7 +123,7 @@ function toggleParameterOverlay(step: WorkflowStep, event: Event) {
               <span
                   v-for="step in workflow.steps"
                   :key="step.id"
-                  class="p-1 cursor-pointer"
+                  class="p-1 cursor-pointer text-highlight"
                   @click="toggleParameterOverlay(step, $event)"
               >
               {{ getStepAcronym(step.id) }}
@@ -156,7 +175,7 @@ function toggleParameterOverlay(step: WorkflowStep, event: Event) {
 </template>
 
 <style scoped lang="scss">
-span:hover {
+.text-highlight:hover {
   color: var(--highlight-text-color);
 }
 </style>
