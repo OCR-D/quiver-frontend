@@ -3,7 +3,7 @@ import filtersStore from "@/store/filters-store"
 import workflowsStore from "@/store/workflows-store"
 import { computed, onMounted, ref } from "vue"
 import MultiSelect from "primevue/multiselect"
-import { type DropdownOption, type GroundTruth } from "@/types"
+import type { DropdownOption, GroundTruth } from "@/types"
 import { deduplicateStepIds, mapGtId } from '@/helpers/utils'
 import { useI18n } from "vue-i18n"
 
