@@ -13,7 +13,7 @@ import workflowsStore from "@/store/workflows-store"
 const props = defineProps<{
   gt: GroundTruth,
   metric: keyof EvaluationResultsDocumentWide,
-  selectedWorkflowStepIds: string[],
+  selectedWorkflowStepIds?: string[],
 }>()
 
 const op = ref<OverlayPanel>()
@@ -23,32 +23,15 @@ const startDate = ref<Date>(new Date('2023-10-01'))
 const endDate = ref<Date>(new Date())
 const workflows = ref<Workflow[]>([])
 
+/*
 onMounted(() => {
   workflows.value = workflowsStore.workflows
-})
+})*/
 
 function getStepAcronym(stepId) {
   return StepsAcronyms[stepId]
 }
 
-function highlightWorkflowStep(stepId: string) {
-  if (props.selectedWorkflowStepIds.length > 0) {
-    return props.selectedWorkflowStepIds.findIndex(id => id === stepId) > -1
-  } else {
-    return false
-  }
-}
-
-function showWorkflow(id: string) {
-  const wf = workflows.value.find((item) => item.id === id)
-  return wf && wf.steps.length > 0
-    ? wf.steps.findIndex((step) => (
-      props.selectedWorkflowStepIds.findIndex((id) => (
-        step.id === id
-      )) > -1
-    )) > -1
-    : false
-}
 
 function showParametersOverlay(step: WorkflowStep, event: Event) {
   selectedStep.value = step
@@ -119,14 +102,16 @@ function toggleParameterOverlay(step: WorkflowStep, event: Event) {
             </thead>
             <tbody>
               <tr v-for="workflow in workflows" :key="workflow.id">
-                <template v-if="showWorkflow(workflow.id)">
+            <!--<template v-if="showWorkflow(workflow.id)">-->
+                <template>
                   <td class="font-semibold pe-2">{{ workflow.label }}</td>
                   <td class="p-1 overflow-x-auto">
+                    <!--:class="/*{ highlighted: highlightWorkflowStep(step.id) }*/" (span below)-->
                     <span
                         v-for="step in workflow.steps"
                         :key="step.id"
                         class="p-1 cursor-pointer"
-                        :class="{ highlighted: highlightWorkflowStep(step.id) }"
+                        
                         @click="toggleParameterOverlay(step, $event)"
                     >
                       {{ getStepAcronym(step.id) }}

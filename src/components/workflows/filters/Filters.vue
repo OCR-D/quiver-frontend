@@ -6,19 +6,9 @@ import MultiSelect from "primevue/multiselect"
 import type { FilterOption } from "@/types"
 
 const gtOptions = computed(() => workflowsStore.gt.map(({ id, label }) => ({ value: id, label })))
-const workflowOptions = computed(() => workflowsStore.workflows.map(({ id, label }) => ({value: id, label})))
-const dateRangeOptions = computed(() => {
-  const values = workflowsStore.gt.reduce((acc, cur) => {
-    acc.add(`${cur.metadata.time.notBefore}-${cur.metadata.time.notAfter}`)
-    return acc
-  }, new Set<string>())
-  return Array.from(values).sort().map(value => ({ value, label: value }))
-})
 
 onMounted(() => {
   filtersStore.gt = gtOptions.value
-  filtersStore.workflow =  workflowOptions.value
-  filtersStore.dateRange = dateRangeOptions.value
 })
 </script>
 
@@ -32,7 +22,7 @@ onMounted(() => {
         optionLabel="label"
         placeholder="Select Ground Truth"
         panel-class="max-w-[500px]"
-        max-selected-labels="1"
+        :max-selected-labels="1"
         filter
         class="relative flex-1"
     >
