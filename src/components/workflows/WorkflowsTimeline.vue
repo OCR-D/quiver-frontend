@@ -36,21 +36,19 @@ watch(selectedMetric,
 
 <template>
   <div class="flex flex-col">
-    <template v-if="gtList.length > 0">
-      <div class="flex w-full mb-4">
-        <Dropdown
-          v-model="selectedMetric"
-          :options="metrics"
-          :pt="DropdownPassThroughStyles"
-          optionLabel="label"
-          placeholder="Select a metric"
-          class="ml-auto md:w-14rem"
-          unstyled
-        />
-      </div>
-      <TrendLegend class="ml-auto mb-4"/>
-      <TimelineFilters></TimelineFilters>
-    </template>
+    <div class="flex w-full mb-4">
+      <Dropdown
+        v-model="selectedMetric"
+        :options="metrics"
+        :pt="DropdownPassThroughStyles"
+        optionLabel="label"
+        placeholder="Select a metric"
+        class="ml-auto md:w-14rem"
+        unstyled
+      />
+    </div>
+    <TrendLegend class="ml-auto mb-4"/>
+    <TimelineFilters></TimelineFilters>
     <div class="flex flex-col space-y-6">
       <template v-if="gtList.length > 0">
         <TimelineItem v-for="gt in gtList" :key="gt.id" :gt="gt" :metric="selectedMetricValue" />
