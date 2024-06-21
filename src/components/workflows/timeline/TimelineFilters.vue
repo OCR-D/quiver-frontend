@@ -2,10 +2,8 @@
 import filtersStore from "@/store/filters-store"
 import workflowsStore from "@/store/workflows-store"
 import { computed, onMounted, ref } from "vue"
-import Dropdown from "primevue/dropdown"
 import MultiSelect from "primevue/multiselect"
 import { type DropdownOption, type GroundTruth } from "@/types"
-import { DropdownPassThroughStyles } from '@/helpers/pt'
 import { deduplicateStepIds, mapGtId } from '@/helpers/utils'
 import { useI18n } from "vue-i18n"
 
@@ -19,13 +17,20 @@ const dateRangeOptions = computed(() => {
   }, new Set<string>())
   return Array.from(values).sort().map(value => ({ value, label: value }))
 })
-const selectedDateRange = ref<DropdownOption | null>()
+const selectedDateRange = ref<DropdownOption[]>([])
 
 const workflowOptions = computed(() => workflowsStore.workflows.map(({ id, label }) => ({ value: id, label })))
 const selectedWorkflows = ref<DropdownOption[]>([])
 
 const workflowStepOptions = ref<DropdownOption[]>([])
 const selectedWorkflowSteps = ref<DropdownOption[]>([])
+
+const dateRangeDropdownLabel = computed(() => {
+  if (dateRangeOptions.value.length === selectedDateRange.value.length) {
+    return t('Filter by date range')
+  }
+  return null
+})
 
 const workflowDropdownLabel = computed(() => {
   if (workflowOptions.value.length === selectedWorkflows.value.length) {
@@ -62,12 +67,11 @@ const selectGTs = () => {
   filtersStore.gtTimeline = filtersStore.gt.filter(({ value }) => {
     const gt = workflowsStore.getGtById(value)
     if(!gt) return false
-    return hasSomeSelectedProcessor(gt) && hasSelectedDateRange(gt) && hasSomeSelectedWorkflow(gt)
+    return hasSomeSelectedProcessor(gt) && hasSomeSelectedDateRange(gt) && hasSomeSelectedWorkflow(gt)
   })
 }
 
 const hasSomeSelectedProcessor = (gt: GroundTruth) => {
-  if (selectedWorkflowSteps.value.length <= 0) return false
   const gtRuns = workflowsStore.getRuns(gt.id)
   return selectedWorkflowSteps.value.some((selectedStep) => {
     return gtRuns.some((gtRun) => {
@@ -76,16 +80,16 @@ const hasSomeSelectedProcessor = (gt: GroundTruth) => {
   })
 }
 
-const hasSelectedDateRange = (gt: GroundTruth) => {
-  if (!selectedDateRange.value) return true //later false if multiselect
-  const splitDateRange = selectedDateRange.value.value.split('-')
-  const from = splitDateRange[0]
-  const to = splitDateRange[1]
-  return gt.metadata.time.notBefore === from && gt.metadata.time.notAfter === to
+const hasSomeSelectedDateRange = (gt: GroundTruth) => {
+  return selectedDateRange.value.some(({ value }) => {
+    const splitDateRange = value.split('-')
+    const from = splitDateRange[0]
+    const to = splitDateRange[1]
+    return gt.metadata.time.notBefore === from && gt.metadata.time.notAfter === to
+  })
 }
 
 const hasSomeSelectedWorkflow = (gt: GroundTruth) => {
-  if (selectedWorkflows.value.length <= 0) return false
   const gtRuns = workflowsStore.getRuns(gt.id)
   return gtRuns.some((gtRun) => {
     return selectedWorkflows.value.findIndex(({ value }) => (value === mapGtId(gtRun.metadata.ocr_workflow.id)))
@@ -104,8 +108,11 @@ const workflowhasSomeSelectedWorkflowStep = (workflowId: string) => {
 
 onMounted(() => {
   workflowStepOptions.value = deduplicateStepIds(workflowsStore.workflows).map(id => ({ value: id, label: t(id) }))
-  selectedWorkflowSteps.value = workflowStepOptions.value
+  
+  selectedDateRange.value = dateRangeOptions.value
   selectedWorkflows.value = workflowOptions.value
+  selectedWorkflowSteps.value = workflowStepOptions.value
+  
   selectGTs()
   selectWorkflows()
 })
@@ -113,17 +120,15 @@ onMounted(() => {
 
 <template>
 <div class="flex w-full mb-4">
-  <Dropdown
+  <MultiSelect
     v-model="selectedDateRange"
     @update:model-value="onDateRangeChange($event)"
     :max-selected-labels="1"
     :options="dateRangeOptions"
-    :pt="DropdownPassThroughStyles"
     optionLabel="label"
     :placeholder="t('Select a date range')"
-    showClear
+    :selected-items-label="dateRangeDropdownLabel"
     class="ml-auto md:w-14rem"
-    unstyled
   />
   <MultiSelect
     v-model="selectedWorkflows"
