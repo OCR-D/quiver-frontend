@@ -15,7 +15,6 @@ import TimelineFilters from "./timeline/TimelineFilters.vue"
 const { t } = useI18n()
 const gtList = computed<GroundTruth[]>(() => workflowsStore.gt.filter(({ id }) => filtersStore.gtTimeline.findIndex(({ value }) => value === id) > -1))
 const workflows = ref<Workflow[]>([])
-
 const selectedMetric = ref<DropdownOption | null>(null)
 const metrics = computed<DropdownOption[]>(() => Object.keys(EvaluationMetrics).map(key => ({ value: EvaluationMetrics[key], label: t(EvaluationMetrics[key]) })))
 const selectedMetricValue = computed<keyof EvaluationResultsDocumentWide>(() => <keyof EvaluationResultsDocumentWide>selectedMetric.value?.value || EvaluationMetrics.CER_MEAN)

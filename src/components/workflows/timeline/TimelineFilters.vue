@@ -128,7 +128,6 @@ onMounted(() => {
   <MultiSelect
     v-model="selectedWorkflows"
     @update:model-value="onWorkflowChange($event)"
-    filter
     :max-selected-labels="1"
     :options="workflowOptions"
     optionLabel="label"
