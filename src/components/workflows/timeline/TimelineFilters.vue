@@ -119,7 +119,7 @@ onMounted(() => {
 </script>
 
 <template>
-<div class="flex w-full mb-4">
+<div class="flex flex-wrap mb-4 justify-start lg:justify-end">
   <MultiSelect
     v-model="selectedDateRange"
     @update:model-value="onDateRangeChange($event)"
@@ -128,7 +128,7 @@ onMounted(() => {
     optionLabel="label"
     :placeholder="t('select_a_date_range')"
     :selected-items-label="dateRangeDropdownLabel"
-    class="ml-auto md:w-14rem"
+    class="mr-4 mb-2 lg:m-0 lg:ml-auto md:w-14rem"
   />
   <MultiSelect
     v-model="selectedWorkflows"
@@ -138,7 +138,7 @@ onMounted(() => {
     optionLabel="label"
     :placeholder="t('select_a_workflow')"
     :selected-items-label="workflowDropdownLabel"
-    class="ml-4 md:w-14rem"
+    class="mr-4 mb-2 lg:m-0 lg:ml-4 md:w-14rem"
   />
   <MultiSelect
     v-model="selectedWorkflowSteps"
@@ -149,12 +149,8 @@ onMounted(() => {
     optionLabel="label"
     :placeholder="t('select_a_processor')"
     :selected-items-label="workflowStepDropdownLabel"
-    class="ml-4 md:w-14rem"
+    class="lg:ml-4 md:w-14rem"
   />
 </div>
 
 </template>
-
-<style scoped lang="scss">
-
-</style>
