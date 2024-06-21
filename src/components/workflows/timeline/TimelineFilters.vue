@@ -31,7 +31,7 @@ const workflowStepOptions = ref<DropdownOption[]>([])
 const selectedWorkflowSteps = ref<DropdownOption[]>([])
 
 const workflowDropdownLabel = computed(() => {
-  if (workflowStepOptions.value.length === selectedWorkflowSteps.value.length) {
+  if (workflowOptions.value.length === selectedWorkflows.value.length) {
     return t('Filter by workflow')
   }
   return null
