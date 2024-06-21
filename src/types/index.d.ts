@@ -39,7 +39,19 @@ export interface GroundTruthMetadata {
   title: string,
   'transcription-guidelines': string,
   url: string,
-  volume: any,
+  volume: {
+    TxtRegion?: string,
+    GraphRegion?: string,
+    SepRegion?: string,
+    MusicRegion?: string,
+    NoiseRegion?: string,
+    TextLine?: string,
+    Page?: string,
+  } |
+  {
+    metric: string,
+    count: number,
+  }[],
 }
 
 export interface Workflow {
@@ -125,6 +137,7 @@ export interface FilterOption {
 export interface ReleaseInfo {
   id: number,
   published_at: string,
-  tag_name: string
+  tag_name: string,
+  html_url: string
 }
 

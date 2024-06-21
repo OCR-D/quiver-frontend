@@ -36,32 +36,30 @@ watch(selectedMetric,
 
 <template>
   <div class="flex flex-col">
-    <div class="flex w-full mb-4">
-      <Dropdown
-        v-model="selectedMetric"
-        :options="metrics"
-        :pt="DropdownPassThroughStyles"
-        optionLabel="label"
-        placeholder="Select a metric"
-        class="ml-auto md:w-14rem"
-        unstyled
-      />
-    </div>
-    <TimelineFilters></TimelineFilters>
-    <TrendLegend class="ml-auto mb-4"/>
+    <template v-if="gtList.length > 0">
+      <div class="flex w-full mb-4">
+        <Dropdown
+          v-model="selectedMetric"
+          :options="metrics"
+          :pt="DropdownPassThroughStyles"
+          optionLabel="label"
+          placeholder="Select a metric"
+          class="ml-auto md:w-14rem"
+          unstyled
+        />
+      </div>
+      <TrendLegend class="ml-auto mb-4"/>
+      <TimelineFilters></TimelineFilters>
+    </template>
     <div class="flex flex-col space-y-6">
       <template v-if="gtList.length > 0">
-        <TimelineItem
-          v-for="gt in gtList"
-          :key="gt.id"
-          :gt="gt"
-          :metric="selectedMetricValue"
-          
-        />
-        <!-- ^ :selected-workflow-step-ids="selectedWorkflowSteps.map((item) => item.value)"-->
+        <TimelineItem v-for="gt in gtList" :key="gt.id" :gt="gt" :metric="selectedMetricValue" />
+      </template>
+      <template v-else-if="workflowsStore.gt.length > 0 ">
+        <div class="my-6">{{ $t('no_documents_selected') }}</div>
       </template>
       <template v-else>
-        <div class="my-6">An error has occurred. Please try again later!</div>
+        <div class="my-6">{{ $t('error_please_try_again_later') }}</div>
       </template>
     </div>
   </div>
