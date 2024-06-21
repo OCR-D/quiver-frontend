@@ -71,6 +71,10 @@ const selectGTs = () => {
   })
 }
 
+const selectWorkflows = () => {
+  filtersStore.workflow = selectedWorkflows.value.filter(({ value }) => (workflowhasSomeSelectedWorkflowStep(value)))
+}
+
 const hasSomeSelectedProcessor = (gt: GroundTruth) => {
   const gtRuns = workflowsStore.getRuns(gt.id)
   return selectedWorkflowSteps.value.some((selectedStep) => {
@@ -94,10 +98,6 @@ const hasSomeSelectedWorkflow = (gt: GroundTruth) => {
   return gtRuns.some((gtRun) => {
     return selectedWorkflows.value.findIndex(({ value }) => (value === mapGtId(gtRun.metadata.ocr_workflow.id)))
   })
-}
-
-const selectWorkflows = () => {
-  filtersStore.workflow = selectedWorkflows.value.filter(({ value }) => (workflowhasSomeSelectedWorkflowStep(value)))
 }
 
 const workflowhasSomeSelectedWorkflowStep = (workflowId: string) => {
