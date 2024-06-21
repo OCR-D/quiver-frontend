@@ -80,5 +80,11 @@
   "volume": "Umfang",
   "labelling": "Kennzeichnung",
   "no_labels_for_this_entry": "Keine Kennzeichnung für diesen Eintrag.",
-  "average_timeline": "Chronik (Durchschnitt)"
+  "average_timeline": "Chronik (Durchschnitt)",
+  "filter_by_date_range": "Nach Zeitspanne filtern",
+  "filter_by_workflow": "Nach Workflow filtern",
+  "filter_by_processor": "Nach Prozessor filtern",
+  "select_a_date_range": "Zeitraum auswählen",
+  "select_a_workflow": "Workflow auswählen",
+  "select_a_processor": "Prozessor auswählen"
 }

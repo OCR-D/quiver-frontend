@@ -27,21 +27,21 @@ const selectedWorkflowSteps = ref<DropdownOption[]>([])
 
 const dateRangeDropdownLabel = computed(() => {
   if (dateRangeOptions.value.length === selectedDateRange.value.length) {
-    return t('Filter by date range')
+    return t('filter_by_date_range')
   }
   return null
 })
 
 const workflowDropdownLabel = computed(() => {
   if (workflowOptions.value.length === selectedWorkflows.value.length) {
-    return t('Filter by workflow')
+    return t('filter_by_workflow')
   }
   return null
 })
 
 const workflowStepDropdownLabel = computed(() => {
   if (workflowStepOptions.value.length === selectedWorkflowSteps.value.length) {
-    return t('Filter by processor')
+    return t('filter_by_processor')
   }
   return null
 })
@@ -126,7 +126,7 @@ onMounted(() => {
     :max-selected-labels="1"
     :options="dateRangeOptions"
     optionLabel="label"
-    :placeholder="t('Select a date range')"
+    :placeholder="t('select_a_date_range')"
     :selected-items-label="dateRangeDropdownLabel"
     class="ml-auto md:w-14rem"
   />
@@ -136,7 +136,7 @@ onMounted(() => {
     :max-selected-labels="1"
     :options="workflowOptions"
     optionLabel="label"
-    :placeholder="t('Select a workflow')"
+    :placeholder="t('select_a_workflow')"
     :selected-items-label="workflowDropdownLabel"
     class="ml-4 md:w-14rem"
   />
@@ -147,7 +147,7 @@ onMounted(() => {
     :max-selected-labels="1"
     :options="workflowStepOptions"
     optionLabel="label"
-    :placeholder="t('Select a processor')"
+    :placeholder="t('select_a_processor')"
     :selected-items-label="workflowStepDropdownLabel"
     class="ml-4 md:w-14rem"
   />

@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import TimelineItem from "@/components/workflows/timeline/TimelineItem.vue"
 import Dropdown from 'primevue/dropdown'
-import {computed, onMounted, ref, watch} from "vue"
-import {EvaluationMetrics, getMaxValueByMetric} from '@/helpers/metrics'
+import { computed, onMounted, ref, watch} from "vue"
+import { EvaluationMetrics, getMaxValueByMetric} from '@/helpers/metrics'
 import { useI18n } from "vue-i18n"
 import type { DropdownOption, EvaluationResultsDocumentWide, Workflow, GroundTruth } from "@/types"
 import { DropdownPassThroughStyles } from '@/helpers/pt'
