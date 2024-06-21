@@ -112,6 +112,7 @@ onMounted(() => {
   selectedWorkflowSteps.value = workflowStepOptions.value
   selectedWorkflows.value = workflowOptions.value
   selectGTs()
+  selectWorkflows()
 })
 </script>
 

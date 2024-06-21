@@ -6,10 +6,11 @@ import MetricChart from "@/components/workflows/timeline/MetricChart.vue"
 import type { EvaluationResultsDocumentWide, GroundTruth, Workflow, WorkflowStep } from "@/types"
 import MetricAverageChart from "@/components/workflows/timeline/MetricAverageChart.vue"
 import { Icon } from '@iconify/vue'
-import { onMounted, nextTick, ref } from "vue"
+import { computed, onMounted, nextTick, ref } from "vue"
 import { OverlayPanelDropdownStyles } from "@/helpers/pt"
 import workflowsStore from "@/store/workflows-store"
 import TimelineItemMetadata from "@/components/workflows/timeline/TimelineItemMetadata.vue"
+import filtersStore from "@/store/filters-store"
 
 
 const props = defineProps<{
@@ -22,11 +23,8 @@ const isOpVisible = ref(false)
 const selectedStep = ref<WorkflowStep | null>(null)
 const startDate = ref<Date>(new Date('2023-10-01'))
 const endDate = ref<Date>(new Date())
-const workflows = ref<Workflow[]>([])
 
-onMounted(() => {
-  workflows.value = workflowsStore.workflows
-})
+const workflows = computed<Workflow[]>(() => workflowsStore.workflows.filter(({ id }) => filtersStore.workflow.findIndex(({ value }) => value === id ) > - 1))
 
 function getStepAcronym(stepId) {
   return StepsAcronyms[stepId]
