@@ -4,7 +4,7 @@ import workflowsStore from "@/store/workflows-store"
 import { computed, onMounted, ref } from "vue"
 import Dropdown from "primevue/dropdown"
 import MultiSelect from "primevue/multiselect"
-import { type FilterOption, type DropdownOption, type GroundTruth } from "@/types"
+import { type DropdownOption, type GroundTruth } from "@/types"
 import { DropdownPassThroughStyles } from '@/helpers/pt'
 import { deduplicateStepIds, mapGtId } from '@/helpers/utils'
 import { useI18n } from "vue-i18n"
@@ -19,12 +19,9 @@ const dateRangeOptions = computed(() => {
   }, new Set<string>())
   return Array.from(values).sort().map(value => ({ value, label: value }))
 })
-
 const selectedDateRange = ref<DropdownOption | null>()
-//const dateRangeOptions = computed<DropdownOption[]>(() => filtersStore.dateRange)
 
 const workflowOptions = computed(() => workflowsStore.workflows.map(({ id, label }) => ({ value: id, label })))
-//const workflowOptions = computed<DropdownOption[]>(() => filtersStore.workflow)
 const selectedWorkflows = ref<DropdownOption[]>([])
 
 const workflowStepOptions = ref<DropdownOption[]>([])
@@ -62,14 +59,14 @@ const onWorkflowStepChange = (event: any) => {
 }
 
 const selectGTs = () => {
-  filtersStore.gtTimeline = filtersStore.gt.filter(({value}) => {
+  filtersStore.gtTimeline = filtersStore.gt.filter(({ value }) => {
     const gt = workflowsStore.getGtById(value)
     if(!gt) return false
     return hasSomeSelectedProcessor(gt) && hasSelectedDateRange(gt) && hasSomeSelectedWorkflow(gt)
   })
 }
 
-function hasSomeSelectedProcessor(gt: GroundTruth) {
+const hasSomeSelectedProcessor = (gt: GroundTruth) => {
   if (selectedWorkflowSteps.value.length <= 0) return false
   const gtRuns = workflowsStore.getRuns(gt.id)
   return selectedWorkflowSteps.value.some((selectedStep) => {
@@ -79,7 +76,7 @@ function hasSomeSelectedProcessor(gt: GroundTruth) {
   })
 }
 
-function hasSelectedDateRange(gt: GroundTruth) {
+const hasSelectedDateRange = (gt: GroundTruth) => {
   if (!selectedDateRange.value) return true //later false if multiselect
   const splitDateRange = selectedDateRange.value.value.split('-')
   const from = splitDateRange[0]
@@ -87,7 +84,7 @@ function hasSelectedDateRange(gt: GroundTruth) {
   return gt.metadata.time.notBefore === from && gt.metadata.time.notAfter === to
 }
 
-function hasSomeSelectedWorkflow(gt: GroundTruth) {
+const hasSomeSelectedWorkflow = (gt: GroundTruth) => {
   if (selectedWorkflows.value.length <= 0) return false
   const gtRuns = workflowsStore.getRuns(gt.id)
   return gtRuns.some((gtRun) => {
@@ -96,18 +93,16 @@ function hasSomeSelectedWorkflow(gt: GroundTruth) {
 }
 
 const selectWorkflows = () => {
-  filtersStore.workflow = selectedWorkflows.value.filter(({value}) => (workflowhasSomeSelectedWorkflowStep(value)))
+  filtersStore.workflow = selectedWorkflows.value.filter(({ value }) => (workflowhasSomeSelectedWorkflowStep(value)))
 }
 
-function workflowhasSomeSelectedWorkflowStep(workflowId: string) {
+const workflowhasSomeSelectedWorkflowStep = (workflowId: string) => {
   const workflow = workflowsStore.getWorkflowById(workflowId)
   if (workflow == null) return false
-  return workflow.steps.some((step) => selectedWorkflowSteps.value.findIndex(({value}) => (value === step.id)) > -1)
+  return workflow.steps.some((step) => selectedWorkflowSteps.value.findIndex(({ value }) => (value === step.id)) > -1)
 }
 
 onMounted(() => {
-  //filtersStore.workflow =  workflowOptions.value
-  //filtersStore.dateRange = dateRangeOptions.value
   workflowStepOptions.value = deduplicateStepIds(workflowsStore.workflows).map(id => ({ value: id, label: t(id) }))
   selectedWorkflowSteps.value = workflowStepOptions.value
   selectedWorkflows.value = workflowOptions.value

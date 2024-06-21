@@ -6,11 +6,9 @@ export default reactive<{
   gtTimeline: FilterOption[],
   metric: FilterOption[],
   workflow: FilterOption[],
-  dateRange: FilterOption[],
 }>({
   gt: [],
   gtTimeline: [],
   metric: [],
-  workflow: [],
-  dateRange: [],
+  workflow: []
 })
