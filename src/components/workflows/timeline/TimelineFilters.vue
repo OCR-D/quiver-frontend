@@ -41,7 +41,7 @@ const scriptTypeOptions = computed(() => {
       gt.metadata["script-type"]
     ))
   ].sort()
-  .map(value => ({value, label: value}))
+  .map(value => ({ value, label: value }))
 })
 const selectedScriptTypes = ref<DropdownOption[]>([])
 
@@ -126,7 +126,7 @@ const hasSomeSelectedLabelling = (gt: GroundTruth) => {
 }
 
 const hasSomeSelectedScriptType = (gt: GroundTruth) => {
-  return selectedScriptTypes.value.some(({value}) => value === gt.metadata["script-type"])
+  return selectedScriptTypes.value.some(({ value }) => value === gt.metadata["script-type"])
 }
 
 const hasSomeSelectedProcessor = (gt: GroundTruth) => {
@@ -175,7 +175,7 @@ onMounted(() => {
 </script>
 
 <template>
-<div class="flex flex-wrap mb-4 justify-start lg:justify-end">
+<div class="pb-4 lg:pb-6 grid sm:grid-cols-2 gap-4 xl:grid-cols-5 xl:gap-8">
   <MultiSelect
     v-model="selectedLabelling"
     @update:model-value="onLabellingChange($event)"
@@ -185,7 +185,6 @@ onMounted(() => {
     option-label="label"
     :placeholder="t('select_a_label')"
     :selected-items-label="labellingDropdownLabel"
-    class=""
   />
   <MultiSelect
     v-model="selectedScriptTypes"
@@ -195,7 +194,6 @@ onMounted(() => {
     option-label="label"
     :placeholder="t('select_a_script_type')"
     :selected-items-label="scriptTypeDropdownLabel"
-    class=""
   />
   <MultiSelect
     v-model="selectedDateRange"
@@ -205,7 +203,6 @@ onMounted(() => {
     optionLabel="label"
     :placeholder="t('select_a_date_range')"
     :selected-items-label="dateRangeDropdownLabel"
-    class="mr-4 mb-2 lg:m-0 lg:ml-auto md:w-14rem"
   />
   <MultiSelect
     v-model="selectedWorkflows"
@@ -215,7 +212,6 @@ onMounted(() => {
     optionLabel="label"
     :placeholder="t('select_a_workflow')"
     :selected-items-label="workflowDropdownLabel"
-    class="mr-4 mb-2 lg:m-0 lg:ml-4 md:w-14rem"
   />
   <MultiSelect
     v-model="selectedWorkflowSteps"
@@ -226,7 +222,6 @@ onMounted(() => {
     optionLabel="label"
     :placeholder="t('select_a_processor')"
     :selected-items-label="workflowStepDropdownLabel"
-    class="lg:ml-4 md:w-14rem"
   />
 </div>
 
