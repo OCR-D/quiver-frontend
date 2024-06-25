@@ -78,7 +78,12 @@
   "filter_by_date_range": "Filter by date range",
   "filter_by_workflow": "Filter by workflow",
   "filter_by_processor": "Filter by processor",
+  "filter_by_labelling": "Filter by labelling",
+  "filter_by_script_type": "Filter by Script-Type",
   "select_a_date_range": "Select a date range",
   "select_a_workflow": "Select a workflow",
-  "select_a_processor": "Select a processor"
+  "select_a_processor": "Select a processor",
+  "select_a_label": "Select a label",
+  "select_a_script_type": "Select a Script-Type",
+  "no_labelling": "No labelling"
 }
