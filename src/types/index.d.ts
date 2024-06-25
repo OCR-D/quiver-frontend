@@ -17,7 +17,7 @@ export interface GroundTruthMetadata {
     count: string,
     level: string
   },
-  labelling: string[],
+  labelling?: string[],
   language: string[],
   license: {
     name: string,

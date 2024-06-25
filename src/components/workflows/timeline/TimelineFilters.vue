@@ -25,6 +25,23 @@ const selectedWorkflows = ref<DropdownOption[]>([])
 const workflowStepOptions = ref<DropdownOption[]>([])
 const selectedWorkflowSteps = ref<DropdownOption[]>([])
 
+const labellingOptions = computed(() => {
+  return [
+      ...new Set(workflowsStore.gt.map(gt => 
+      Array.isArray(gt.metadata.labelling) && gt.metadata.labelling.length > 0 ? gt.metadata.labelling : [t('Kein Labelling')]) //gt.metadata.labelling ?? [t('Kein Labelling')])
+      .flat(1))
+    ].sort()
+    .map(label => ({ value: label, label }))
+})
+const selectedLabelling = ref<DropdownOption[]>([])
+
+const labellingDropdownLabel = computed(() => {
+  if (labellingOptions.value.length === selectedLabelling.value.length) {
+    return t('Filter by labelling')
+  }
+  return null
+})
+
 const dateRangeDropdownLabel = computed(() => {
   if (dateRangeOptions.value.length === selectedDateRange.value.length) {
     return t('filter_by_date_range')
@@ -45,6 +62,11 @@ const workflowStepDropdownLabel = computed(() => {
   }
   return null
 })
+
+const onLabellingChange = (event: any) => {
+  selectedLabelling.value = event
+  selectGTs()
+}
 
 const onDateRangeChange = (event: any) => {
   selectedDateRange.value = event
@@ -67,12 +89,18 @@ const selectGTs = () => {
   filtersStore.gtTimeline = filtersStore.gt.filter(({ value }) => {
     const gt = workflowsStore.getGtById(value)
     if(!gt) return false
-    return hasSomeSelectedProcessor(gt) && hasSomeSelectedDateRange(gt) && hasSomeSelectedWorkflow(gt)
+    return hasSomeSelectedLabelling(gt) && hasSomeSelectedProcessor(gt) && hasSomeSelectedDateRange(gt) && hasSomeSelectedWorkflow(gt)
   })
 }
 
 const selectWorkflows = () => {
   filtersStore.workflow = selectedWorkflows.value.filter(({ value }) => (workflowhasSomeSelectedWorkflowStep(value)))
+}
+const hasSomeSelectedLabelling = (gt: GroundTruth) => {
+  return selectedLabelling.value.some(({ value }) => {
+    if(!Array.isArray(gt.metadata.labelling) || gt.metadata.labelling.length <= 0) return value === t('Kein Labelling')
+    return gt.metadata.labelling?.some(labelling => labelling === value)
+  })
 }
 
 const hasSomeSelectedProcessor = (gt: GroundTruth) => {
@@ -112,7 +140,8 @@ onMounted(() => {
   selectedDateRange.value = dateRangeOptions.value
   selectedWorkflows.value = workflowOptions.value
   selectedWorkflowSteps.value = workflowStepOptions.value
-  
+  selectedLabelling.value = labellingOptions.value
+
   selectGTs()
   selectWorkflows()
 })
@@ -120,6 +149,17 @@ onMounted(() => {
 
 <template>
 <div class="flex flex-wrap mb-4 justify-start lg:justify-end">
+  <MultiSelect
+    v-model="selectedLabelling"
+    @update:model-value="onLabellingChange($event)"
+    filter
+    :max-selected-labels="0"
+    :options="labellingOptions"
+    option-label="label"
+    :placeholder="t('Select labelling')"
+    :selected-items-label="labellingDropdownLabel"
+    class=""
+  />
   <MultiSelect
     v-model="selectedDateRange"
     @update:model-value="onDateRangeChange($event)"
