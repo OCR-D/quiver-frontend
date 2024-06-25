@@ -74,6 +74,11 @@
   "volume": "Volume",
   "labelling": "Labelling",
   "no_labels_for_this_entry": "No labels for this entry.",
-  "average_timeline": "Average Timeline"
-
+  "average_timeline": "Average Timeline",
+  "filter_by_date_range": "Filter by date range",
+  "filter_by_workflow": "Filter by workflow",
+  "filter_by_processor": "Filter by processor",
+  "select_a_date_range": "Select a date range",
+  "select_a_workflow": "Select a workflow",
+  "select_a_processor": "Select a processor"
 }

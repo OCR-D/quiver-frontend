@@ -3,8 +3,12 @@ import type { FilterOption } from "@/types"
 
 export default reactive<{
   gt: FilterOption[],
-  metric: FilterOption[]
+  gtTimeline: FilterOption[],
+  metric: FilterOption[],
+  workflow: FilterOption[],
 }>({
   gt: [],
-  metric: []
+  gtTimeline: [],
+  metric: [],
+  workflow: []
 })
