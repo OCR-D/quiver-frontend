@@ -153,7 +153,7 @@ const hasSomeSelectedDateRange = (gt: GroundTruth) => {
 const hasSomeSelectedWorkflow = (gt: GroundTruth) => {
   const gtRuns = workflowsStore.getRuns(gt.id)
   return gtRuns.some((gtRun) => {
-    return selectedWorkflows.value.findIndex(({ value }) => (value === mapGtId(gtRun.metadata.ocr_workflow.id)))
+    return selectedWorkflows.value.findIndex(({ value }) => (value === mapGtId(gtRun.metadata.ocr_workflow.id))) > -1
   })
 }
 
