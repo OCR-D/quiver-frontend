@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import filtersStore from "@/store/filters-store"
 import workflowsStore from "@/store/workflows-store"
-import { computed, onMounted, ref } from "vue"
+import { computed, onMounted, ref, watch } from "vue"
 import MultiSelect from "primevue/multiselect"
 import type { DropdownOption, GroundTruth } from "@/types"
 import { deduplicateStepIds, mapGtId } from '@/helpers/utils'
@@ -105,6 +105,10 @@ const workflowhasSomeSelectedWorkflowStep = (workflowId: string) => {
   if (workflow == null) return false
   return workflow.steps.some((step) => selectedWorkflowSteps.value.findIndex(({ value }) => (value === step.id)) > -1)
 }
+
+watch(() => filtersStore.gt, () => {
+  selectGTs()
+})
 
 onMounted(() => {
   workflowStepOptions.value = deduplicateStepIds(workflowsStore.workflows).map(id => ({ value: id, label: t(id) }))
