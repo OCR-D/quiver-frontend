@@ -28,9 +28,11 @@ const selectedWorkflowSteps = ref<DropdownOption[]>([])
 const labellingOptions = computed(() => {
   return [
       ...new Set(workflowsStore.gt.map(gt => 
-      Array.isArray(gt.metadata.labelling) && gt.metadata.labelling.length > 0 ? gt.metadata.labelling : [t('no_labelling')])
-      .flat(1))
-    ].sort()
+          Array.isArray(gt.metadata.labelling) && gt.metadata.labelling.length > 0 ? gt.metadata.labelling : [t('no_labelling')]
+        ).flat(1)
+      )
+    ]
+    .sort()
     .map(value => ({ value, label: value }))
 })
 const selectedLabelling = ref<DropdownOption[]>([])
@@ -40,7 +42,8 @@ const scriptTypeOptions = computed(() => {
     ...new Set(workflowsStore.gt.map(gt => 
       gt.metadata["script-type"]
     ))
-  ].sort()
+  ]
+  .sort()
   .map(value => ({ value, label: value }))
 })
 const selectedScriptTypes = ref<DropdownOption[]>([])
