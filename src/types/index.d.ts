@@ -32,7 +32,10 @@ export interface GroundTruthMetadata {
     reference: string,
     link: string
   }[],
-  time: TimeSpan
+  time: {
+    notBefore: string,
+    notAfter: string
+  },
   title: string,
   'transcription-guidelines': string,
   url: string,
@@ -49,11 +52,6 @@ export interface GroundTruthMetadata {
     metric: string,
     count: number,
   }[],
-}
-
-export interface TimeSpan {
-  notBefore: string,
-  notAfter: string
 }
 
 export interface Workflow {
