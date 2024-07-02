@@ -25,6 +25,43 @@ const selectedWorkflows = ref<DropdownOption[]>([])
 const workflowStepOptions = ref<DropdownOption[]>([])
 const selectedWorkflowSteps = ref<DropdownOption[]>([])
 
+const labellingOptions = computed(() => {
+  return [
+      ...new Set(workflowsStore.gt.map(gt => 
+          Array.isArray(gt.metadata.labelling) && gt.metadata.labelling.length > 0 ? gt.metadata.labelling : [t('no_labelling')]
+        ).flat(1)
+      )
+    ]
+    .sort()
+    .map(value => ({ value, label: value }))
+})
+const selectedLabelling = ref<DropdownOption[]>([])
+
+const scriptTypeOptions = computed(() => {
+  return [
+    ...new Set(workflowsStore.gt.map(gt => 
+      gt.metadata["script-type"]
+    ))
+  ]
+  .sort()
+  .map(value => ({ value, label: value }))
+})
+const selectedScriptTypes = ref<DropdownOption[]>([])
+
+const labellingDropdownLabel = computed(() => {
+  if (labellingOptions.value.length === selectedLabelling.value.length) {
+    return t('filter_by_labelling')
+  }
+  return null
+})
+
+const scriptTypeDropdownLabel = computed(() => {
+  if (scriptTypeOptions.value.length === selectedScriptTypes.value.length) {
+    return t('filter_by_script_type')
+  }
+  return null
+})
+
 const dateRangeDropdownLabel = computed(() => {
   if (dateRangeOptions.value.length === selectedDateRange.value.length) {
     return t('filter_by_date_range')
@@ -45,6 +82,16 @@ const workflowStepDropdownLabel = computed(() => {
   }
   return null
 })
+
+const onLabellingChange = (event: any) => {
+  selectedLabelling.value = event
+  selectGTs()
+}
+
+const onScriptTypeChange = (event: any) => {
+  selectedScriptTypes.value = event
+  selectGTs()
+}
 
 const onDateRangeChange = (event: any) => {
   selectedDateRange.value = event
@@ -67,12 +114,22 @@ const selectGTs = () => {
   filtersStore.gtTimeline = filtersStore.gt.filter(({ value }) => {
     const gt = workflowsStore.getGtById(value)
     if(!gt) return false
-    return hasSomeSelectedProcessor(gt) && hasSomeSelectedDateRange(gt) && hasSomeSelectedWorkflow(gt)
+    return hasSomeSelectedLabelling(gt) && hasSomeSelectedScriptType(gt) && hasSomeSelectedProcessor(gt) && hasSomeSelectedDateRange(gt) && hasSomeSelectedWorkflow(gt)
   })
 }
 
 const selectWorkflows = () => {
   filtersStore.workflow = selectedWorkflows.value.filter(({ value }) => (workflowhasSomeSelectedWorkflowStep(value)))
+}
+const hasSomeSelectedLabelling = (gt: GroundTruth) => {
+  return selectedLabelling.value.some(({ value }) => {
+    if(!Array.isArray(gt.metadata.labelling) || gt.metadata.labelling.length <= 0) return value === t('no_labelling')
+    return gt.metadata.labelling?.some(labelling => labelling === value)
+  })
+}
+
+const hasSomeSelectedScriptType = (gt: GroundTruth) => {
+  return selectedScriptTypes.value.some(({ value }) => value === gt.metadata["script-type"])
 }
 
 const hasSomeSelectedProcessor = (gt: GroundTruth) => {
@@ -96,7 +153,7 @@ const hasSomeSelectedDateRange = (gt: GroundTruth) => {
 const hasSomeSelectedWorkflow = (gt: GroundTruth) => {
   const gtRuns = workflowsStore.getRuns(gt.id)
   return gtRuns.some((gtRun) => {
-    return selectedWorkflows.value.findIndex(({ value }) => (value === mapGtId(gtRun.metadata.ocr_workflow.id))) > -1 
+    return selectedWorkflows.value.findIndex(({ value }) => (value === mapGtId(gtRun.metadata.ocr_workflow.id))) > -1
   })
 }
 
@@ -116,14 +173,35 @@ onMounted(() => {
   selectedDateRange.value = dateRangeOptions.value
   selectedWorkflows.value = workflowOptions.value
   selectedWorkflowSteps.value = workflowStepOptions.value
-  
+  selectedLabelling.value = labellingOptions.value
+  selectedScriptTypes.value = scriptTypeOptions.value
+
   selectGTs()
   selectWorkflows()
 })
 </script>
 
 <template>
-<div class="flex flex-wrap mb-4 justify-start lg:justify-end">
+<div class="pb-4 lg:pb-6 grid sm:grid-cols-2 gap-4 xl:grid-cols-5 xl:gap-8">
+  <MultiSelect
+    v-model="selectedLabelling"
+    @update:model-value="onLabellingChange($event)"
+    filter
+    :max-selected-labels="0"
+    :options="labellingOptions"
+    option-label="label"
+    :placeholder="t('select_a_label')"
+    :selected-items-label="labellingDropdownLabel"
+  />
+  <MultiSelect
+    v-model="selectedScriptTypes"
+    @update:model-value="onScriptTypeChange($event)"
+    :max-selected-labels="0"
+    :options="scriptTypeOptions"
+    option-label="label"
+    :placeholder="t('select_a_script_type')"
+    :selected-items-label="scriptTypeDropdownLabel"
+  />
   <MultiSelect
     v-model="selectedDateRange"
     @update:model-value="onDateRangeChange($event)"
@@ -132,7 +210,6 @@ onMounted(() => {
     optionLabel="label"
     :placeholder="t('select_a_date_range')"
     :selected-items-label="dateRangeDropdownLabel"
-    class="mr-4 mb-2 lg:m-0 lg:ml-auto md:w-14rem"
   />
   <MultiSelect
     v-model="selectedWorkflows"
@@ -142,7 +219,6 @@ onMounted(() => {
     optionLabel="label"
     :placeholder="t('select_a_workflow')"
     :selected-items-label="workflowDropdownLabel"
-    class="mr-4 mb-2 lg:m-0 lg:ml-4 md:w-14rem"
   />
   <MultiSelect
     v-model="selectedWorkflowSteps"
@@ -153,7 +229,6 @@ onMounted(() => {
     optionLabel="label"
     :placeholder="t('select_a_processor')"
     :selected-items-label="workflowStepDropdownLabel"
-    class="lg:ml-4 md:w-14rem"
   />
 </div>
 
