@@ -86,5 +86,11 @@
   "filter_by_processor": "Nach Prozessor filtern",
   "select_a_date_range": "Zeitraum auswählen",
   "select_a_workflow": "Workflow auswählen",
-  "select_a_processor": "Prozessor auswählen"
+  "select_a_processor": "Prozessor auswählen",
+  "label_asc": "Titel (a - z)",
+  "label_desc": "Titel (z - a)",
+  "metric_desc": "Ausgewählte Metrik (absteigend)",
+  "metric_asc": "Ausgewählte Metrik (aufsteigend)",
+  "year_asc": "Zeitraum (ältester - neuster)",
+  "year_desc": "Zeitraum (neuster - ältester)"
 }
