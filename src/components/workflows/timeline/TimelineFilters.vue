@@ -25,6 +25,12 @@ const selectedWorkflows = ref<DropdownOption[]>([])
 const workflowStepOptions = ref<DropdownOption[]>([])
 const selectedWorkflowSteps = ref<DropdownOption[]>([])
 
+/*
+Compiles the DropdownOption[] for the labelling filter.
+
+Each gt can have a list of labels, while some have no labelling at all.
+The DropdownOption[] is computed by adding all labelling options to a flat list, then making them unique and sorting them. 
+*/
 const labellingOptions = computed(() => {
   return [
       ...new Set(workflowsStore.gt.map(gt => 
