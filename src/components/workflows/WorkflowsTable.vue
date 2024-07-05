@@ -2,7 +2,7 @@
 import { watch, ref, onMounted, computed } from "vue"
 import { useI18n } from "vue-i18n"
 import { createReadableMetricValue, getEvalColor, mapGtId } from "@/helpers/utils"
-import type { EvaluationRun } from "@/types"
+import type { EvalDefinitions, EvaluationResultsDocumentWide, EvaluationRun, GroupedTableData } from "@/types"
 import Dropdown from 'primevue/dropdown'
 import workflowsStore from "@/store/workflows-store"
 import api from "@/helpers/api"
@@ -11,8 +11,8 @@ import TrendLegend from "@/components/workflows/TrendLegend.vue"
 
 const { t } = useI18n()
 
-const groupedData = ref({})
-const evals = ref([])
+const groupedData = ref<GroupedTableData>({})
+const evals = ref<string[]>([])
 
 const sortOptions = ref([{
   value: 'documents',
@@ -25,7 +25,7 @@ const sortOptions = ref([{
 const sortBy = ref(sortOptions.value[0])
 const latestRuns = ref<EvaluationRun[]>([])
 const filteredRuns = ref<EvaluationRun[]>([])
-const evalDefinitions = ref([])
+const evalDefinitions = ref<EvalDefinitions>({})
 const loading = ref(false)
 
 onMounted(async () => {
@@ -66,7 +66,7 @@ const groupByWorkflows = () => {
       label: workflowsStore.getGtById(mapGtId(cur.metadata.gt_workspace.id))?.label,
       evaluations: Object.keys(cur.evaluation_results.document_wide).map(key => ({
         name: key,
-        value: cur.evaluation_results.document_wide[key]
+        value: cur.evaluation_results.document_wide[key as keyof EvaluationResultsDocumentWide]
       }))
     }
     if (!acc[ocrWorkflowId]) {
@@ -77,12 +77,12 @@ const groupByWorkflows = () => {
     } else {
       acc[ocrWorkflowId].subjects.push(subject)
       acc[ocrWorkflowId].subjects.sort((a, b) => {
-        if (a.label > b.label) return 1
+        if ((a.label && b.label) && a.label > b.label) return 1
         else return -1
       })
     }
     return acc
-  }, {})
+  }, {} as GroupedTableData)
 }
 
 const groupByDocuments = () => {
@@ -94,7 +94,7 @@ const groupByDocuments = () => {
       label: workflowsStore.getWorkflowById(mapGtId(cur.metadata.ocr_workflow['id']))?.label,
       evaluations: Object.keys(cur.evaluation_results.document_wide).map(key => ({
         name: key,
-        value: cur.evaluation_results.document_wide[key]
+        value: cur.evaluation_results.document_wide[key as keyof EvaluationResultsDocumentWide]
       }))
     }
     if (!acc[gtWorkspaceId]) {
@@ -105,12 +105,12 @@ const groupByDocuments = () => {
     } else {
       acc[gtWorkspaceId].subjects.push(subject)
       acc[gtWorkspaceId].subjects.sort((a, b) => {
-        if (a.label > b.label) return 1
+        if ((a.label && b.label) && a.label > b.label) return 1
         else return -1
       })
     }
     return acc
-  }, {})
+  }, {} as GroupedTableData)
 }
 </script>
 
@@ -161,7 +161,7 @@ const groupByDocuments = () => {
             <span
               class="metric inline-block cursor-pointer text-sm leading-none p-1 rounded-lg min-w-[48px]"
               :class="getEvalColor(name, value)">
-              {{ createReadableMetricValue(name, value) }}
+              {{ createReadableMetricValue(name as keyof EvaluationResultsDocumentWide, value) }}
             </span>
           </td>
         </tr>

@@ -141,3 +141,26 @@ export interface ReleaseInfo {
   html_url: string
 }
 
+export interface EvalDefinition {
+  label: string,
+  short_descr: string,
+  url: string
+}
+
+export interface EvalDefinitions {
+  [id: string]: EvalDefinition
+}
+
+export interface GroupedTableData {
+  [gtWorkId: string]: {
+    label: string | undefined,
+    subjects: {
+      label: string | undefined
+      evaluations: {
+        name: string
+        value: number | number[] | null
+      }[]
+    }[]
+  }
+}
+
