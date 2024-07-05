@@ -114,7 +114,13 @@ const selectGTs = () => {
   filtersStore.gtTimeline = filtersStore.gt.filter(({ value }) => {
     const gt = workflowsStore.getGtById(value)
     if(!gt) return false
-    return hasSomeSelectedLabelling(gt) && hasSomeSelectedScriptType(gt) && hasSomeSelectedProcessor(gt) && hasSomeSelectedDateRange(gt) && hasSomeSelectedWorkflow(gt)
+    return (
+      hasSomeSelectedLabelling(gt) && 
+      hasSomeSelectedScriptType(gt) && 
+      hasSomeSelectedProcessor(gt) && 
+      hasSomeSelectedDateRange(gt) && 
+      hasSomeSelectedWorkflow(gt)
+    )
   })
 }
 
