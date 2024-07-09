@@ -38,8 +38,14 @@ async function getLatestRuns(gtId?: string, workflowId?: string): Promise<Evalua
     if (workflowId) path += `/${workflowId}`
 
     path += '/latest'
-
-    return await request(path)
+    /*
+    TODO: Remove flattening when bug in the backend is fixed.
+    Bug:  The data gets returned as an array of arrays that each contain a single object. 
+          It should have the same structure as the data at the /runs endpoint. (array of objects)
+    Workaround:
+          Flatten the returned list to match the data structure of the /runs endpoint.
+    */
+    return (await request(path)).flat(1)
 }
 
 async function request (url: string) {
