@@ -10,7 +10,7 @@ async function getOcrdAllReleases() {
     return await request(baseUrlOld + '/ocrd_all_releases.json')
 }
 
-async function getEvalDefinitions(): Promise<EvalDefinitions> {
+async function getEvalDefinitions(): Promise<EvalDefinition> {
     return await request(baseUrlOld + '/metrics_definitions.json')
 }
 
