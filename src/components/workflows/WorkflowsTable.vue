@@ -44,6 +44,7 @@ watch(() => filtersStore.gt, () => {
 
 watch(sortBy, () => {
   groupRuns(sortBy.value.value)
+  console.log(groupedData.value) //TODO: remove, continue here
 })
 
 function setFilteredRuns() {
