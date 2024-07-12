@@ -23,8 +23,8 @@ function sortByOption(gtList: GroundTruth[], sortingOption: string, metric: keyo
 function sortByMetric(gtList: GroundTruth[], desc: boolean, metric: keyof EvaluationResultsDocumentWide): GroundTruth[] {
   return gtList.sort((left, right) => {
     const compareMetric = (left: GroundTruth, right: GroundTruth) => {
-      const leftRuns = workflowsStore.getRuns(left.id) //assume getLatestRuns(id) TODO -> change to latestRuns
-      const rightRuns = workflowsStore.getRuns(right.id) //same here
+      const leftRuns = workflowsStore.getLatestRuns(left.id)
+      const rightRuns = workflowsStore.getLatestRuns(right.id)
       
       const getAverageValue = (runs: EvaluationRun[]) => {
         if (runs.length === 0) return 0
