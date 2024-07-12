@@ -8,6 +8,7 @@ import workflowsStore from "@/store/workflows-store"
 import api from "@/helpers/api"
 import filtersStore from "@/store/filters-store"
 import TrendLegend from "@/components/workflows/TrendLegend.vue"
+import WorkflowsTableSorter from "@/components/workflows/timeline/WorkflowTableSorter.vue"
 
 const { t } = useI18n()
 
@@ -53,6 +54,7 @@ function setFilteredRuns() {
 function groupRuns(groupBy: string) {
   if (groupBy === 'workflows') groupByWorkflows()
   else if (groupBy === 'documents') groupByDocuments()
+  console.log(groupedData.value)
 }
 
 const groupByWorkflows = () => {
@@ -133,7 +135,9 @@ const groupByDocuments = () => {
         <th class="p-2 border">{{ sortBy.value === 'documents' ? $t('workflows') : $t('documents') }}</th>
         <th v-for="(evalKey, i) in evals" :key="i" class="p-2 border">
           <span class="def-label flex items-center justify-center cursor-pointer">
-            {{ evalDefinitions[evalKey] ? evalDefinitions[evalKey].label : evalKey }}
+            <WorkflowsTableSorter :grouped-data="groupedData" :metric="(evalKey as keyof EvaluationResultsDocumentWide)">
+              {{ evalDefinitions[evalKey] ? evalDefinitions[evalKey].label : evalKey }}
+            </WorkflowsTableSorter>
             <i-icon name="ink-info"/>
             <div class="def-tooltip">
               <div class="flex p-2 bg-white border rounded">

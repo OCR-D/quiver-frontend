@@ -141,14 +141,12 @@ export interface ReleaseInfo {
   html_url: string
 }
 
-export interface EvalDefinition {
-  label: string,
-  short_descr: string,
-  url: string
-}
-
 export interface EvalDefinitions {
-  [id: string]: EvalDefinition
+  [id: string]: {
+    label: string,
+    short_descr: string,
+    url: string 
+  }
 }
 
 export interface GroupedTableData {

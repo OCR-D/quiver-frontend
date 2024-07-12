@@ -1,4 +1,4 @@
-import type { EvalDefinition, EvaluationRun, GroundTruth, Workflow } from "@/types"
+import type { EvalDefinitions, EvaluationRun, GroundTruth, Workflow } from "@/types"
 
 const baseUrlOld = 'https://raw.githubusercontent.com/OCR-D/quiver-back-end/main/data'
 const baseUrl = 'https://quiver-dev.sub.uni-goettingen.de/api'
@@ -10,7 +10,7 @@ async function getOcrdAllReleases() {
     return await request(baseUrlOld + '/ocrd_all_releases.json')
 }
 
-async function getEvalDefinitions(): Promise<EvalDefinition> {
+async function getEvalDefinitions(): Promise<EvalDefinitions> {
     return await request(baseUrlOld + '/metrics_definitions.json')
 }
 
