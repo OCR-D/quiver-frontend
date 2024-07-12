@@ -2,10 +2,10 @@
 import filtersStore from "@/store/filters-store"
 import workflowsStore from "@/store/workflows-store"
 import { computed, onMounted, ref, watch } from "vue"
-import MultiSelect from "primevue/multiselect"
 import type { DropdownOption, GroundTruth } from "@/types"
 import { deduplicateStepIds, mapGtId } from '@/helpers/utils'
 import { useI18n } from "vue-i18n"
+import BaseMultiSelect from "@/components/base/MultiSelect.vue"
 
 
 const { t } = useI18n()
@@ -53,41 +53,6 @@ const scriptTypeOptions = computed(() => {
   .map(value => ({ value, label: value }))
 })
 const selectedScriptTypes = ref<DropdownOption[]>([])
-
-const labellingDropdownLabel = computed(() => {
-  if (labellingOptions.value.length === selectedLabelling.value.length) {
-    return t('filter_by_labelling')
-  }
-  return null
-})
-
-const scriptTypeDropdownLabel = computed(() => {
-  if (scriptTypeOptions.value.length === selectedScriptTypes.value.length) {
-    return t('filter_by_script_type')
-  }
-  return null
-})
-
-const dateRangeDropdownLabel = computed(() => {
-  if (dateRangeOptions.value.length === selectedDateRange.value.length) {
-    return t('filter_by_date_range')
-  }
-  return null
-})
-
-const workflowDropdownLabel = computed(() => {
-  if (workflowOptions.value.length === selectedWorkflows.value.length) {
-    return t('filter_by_workflow')
-  }
-  return null
-})
-
-const workflowStepDropdownLabel = computed(() => {
-  if (workflowStepOptions.value.length === selectedWorkflowSteps.value.length) {
-    return t('filter_by_processor')
-  }
-  return null
-})
 
 const onLabellingChange = (event: any) => {
   selectedLabelling.value = event
@@ -195,52 +160,47 @@ onMounted(() => {
 
 <template>
 <div class="pb-4 lg:pb-6 grid sm:grid-cols-2 gap-4 xl:grid-cols-5 xl:gap-8">
-  <MultiSelect
+  <BaseMultiSelect
     v-model="selectedLabelling"
     @update:model-value="onLabellingChange($event)"
     filter
     :max-selected-labels="0"
     :options="labellingOptions"
-    option-label="label"
     :placeholder="t('select_a_label')"
-    :selected-items-label="labellingDropdownLabel"
+    :all-selected-label="t('filter_by_labelling')"
   />
-  <MultiSelect
+  <BaseMultiSelect
     v-model="selectedScriptTypes"
     @update:model-value="onScriptTypeChange($event)"
     :max-selected-labels="0"
     :options="scriptTypeOptions"
-    option-label="label"
     :placeholder="t('select_a_script_type')"
-    :selected-items-label="scriptTypeDropdownLabel"
+    :all-selected-label="t('filter_by_script_type')"
   />
-  <MultiSelect
+  <BaseMultiSelect
     v-model="selectedDateRange"
     @update:model-value="onDateRangeChange($event)"
     :max-selected-labels="1"
     :options="dateRangeOptions"
-    optionLabel="label"
     :placeholder="t('select_a_date_range')"
-    :selected-items-label="dateRangeDropdownLabel"
+    :all-selected-label="t('filter_by_date_range')"
   />
-  <MultiSelect
+  <BaseMultiSelect
     v-model="selectedWorkflows"
     @update:model-value="onWorkflowChange($event)"
     :max-selected-labels="1"
     :options="workflowOptions"
-    optionLabel="label"
     :placeholder="t('select_a_workflow')"
-    :selected-items-label="workflowDropdownLabel"
+    :all-selected-label="t('filter_by_workflow')"
   />
-  <MultiSelect
+  <BaseMultiSelect
     v-model="selectedWorkflowSteps"
     @update:model-value="onWorkflowStepChange($event)"
     filter
     :max-selected-labels="1"
     :options="workflowStepOptions"
-    optionLabel="label"
     :placeholder="t('select_a_processor')"
-    :selected-items-label="workflowStepDropdownLabel"
+    :all-selected-label="t('filter_by_processor')"
   />
 </div>
 
