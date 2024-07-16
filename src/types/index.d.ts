@@ -152,13 +152,15 @@ export interface EvalDefinitions {
 export interface GroupedTableData {
   [gtWorkId: string]: {
     label: string | undefined,
-    subjects: {
-      label: string | undefined
-      evaluations: {
-        name: string
-        value: number | number[] | null
-      }[]
-    }[]
+    subjects: GroupedTableDataSubject[]
   }
 }
 
+
+export interface GroupedTableDataSubject {
+  label: string | undefined
+  evaluations: {
+    name: string
+    value: number | number[] | null
+  }[]
+}
