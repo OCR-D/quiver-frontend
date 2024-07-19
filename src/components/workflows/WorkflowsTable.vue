@@ -4,6 +4,7 @@ import { useI18n } from "vue-i18n"
 import { createReadableMetricValue, getEvalColor, mapGtId } from "@/helpers/utils"
 import type { EvalDefinitions, EvaluationResultsDocumentWide, EvaluationRun, GroupedTableData } from "@/types"
 import Dropdown from 'primevue/dropdown'
+import Checkbox from 'primevue/checkbox'
 import workflowsStore from "@/store/workflows-store"
 import api from "@/helpers/api"
 import filtersStore from "@/store/filters-store"
@@ -20,6 +21,8 @@ const sortBy = ref<keyof EvaluationResultsDocumentWide | null>(null)
 const tableData = computed<GroupedTableData>(() => {
   return (sortBy.value === null || Object.keys(sortedData.value).length === 0) ? groupedData.value : sortedData.value
 })
+
+const keepGroupsWhenSorting = ref(true)
 
 const groupingOptions = ref([{
   value: 'documents',
@@ -138,6 +141,9 @@ const setSorted = (event: GroupedTableData, key: keyof EvaluationResultsDocument
   <template v-else>
     <div class="flex flex-col" v-if="Object.keys(tableData).length > 0">
       <div class="flex items-center mb-4 ml-auto">
+        <label for="keepGroupsCheckbox" class="mr-2">{{ $t('keep_grouping_when_sorting') }}</label>
+        <Checkbox v-model="keepGroupsWhenSorting" input-id="keepGroupsCheckbox" binary class="mr-8"></Checkbox>
+        
         <p class="mr-2">{{ $t('group_by') }}:</p>
         <Dropdown v-model="groupBy" :options="groupingOptions" optionLabel="label" placeholder="Choose something.." class="" />
       </div>
@@ -151,9 +157,10 @@ const setSorted = (event: GroupedTableData, key: keyof EvaluationResultsDocument
         <th v-for="(evalKey, i) in evals" :key="i" class="p-2 border">
           <span class="def-label flex items-center justify-center cursor-pointer">
             <WorkflowsTableSorter 
-              :grouped-data="tableData" 
+              :grouped-data="groupedData" 
               :metric="(evalKey as keyof EvaluationResultsDocumentWide)" 
               :sort="getSortValue(evalKey as keyof EvaluationResultsDocumentWide)"
+              :keep-grouping="keepGroupsWhenSorting"
               @sorted-data="setSorted($event, evalKey as keyof EvaluationResultsDocumentWide)"
               @unsorted-data="sortBy = null"
             >
