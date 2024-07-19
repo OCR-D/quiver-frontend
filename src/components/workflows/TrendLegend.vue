@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const props = withDefaults(defineProps<{
-  showTextColors: boolean
+  showTextColors?: boolean
 }>(), {
   showTextColors: true
 })
