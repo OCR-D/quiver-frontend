@@ -38,10 +38,10 @@ function init() {
 function getTimelineData(runs: EvaluationRun[], metric: string): TimelineChartDataPoint[] {
   const datesValues = runs.reduce((acc, cur) => {
     const date = new Date(new Date(cur.metadata.timestamp).setHours(0, 0, 0, 0)).toDateString()
-    const value = cur.evaluation_results.document_wide[<keyof EvaluationResultsDocumentWide>metric]
-    if (!value || Array.isArray(value)) return acc
+    const value = (cur.evaluation_results.document_wide[metric as keyof EvaluationResultsDocumentWide]) ?? 0
+    if (Array.isArray(value)) return acc
 
-    if (!acc[date]) acc[date] = [value]
+    if (!acc.hasOwnProperty(date)) acc[date] = [value]
     else acc[date] = [...acc[date], value]
     return acc
   },
