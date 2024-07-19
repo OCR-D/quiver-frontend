@@ -36,7 +36,13 @@ const dropdownLabel = computed(() => {
   }">
     <template #headercheckboxicon="{ allSelected }">
       <Icon v-show="allSelected" icon="prime:check" class="p-checkbox-icon h-5 w-5" data-pc-section="headercheckboxicon"/>
-      <span :class="['ml-[7.5rem] absolute w-20 z-[1001]', allSelected ? 'text-[#1D4ED8]' : 'text-black']">{{ t('select_all') }}</span>
+      <span :class="['ml-[7.5rem] absolute w-20 z-[1001]', allSelected ? 'text-highlight' : 'text-black']">{{ t('select_all') }}</span>
     </template>
   </MultiSelect>
 </template>
+
+<style scoped lang="scss">
+.text-highlight {
+  color: var(--highlight-text-color);
+}
+</style>
