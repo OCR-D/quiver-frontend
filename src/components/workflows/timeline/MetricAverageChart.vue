@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import {computed, onMounted, ref, watch} from "vue"
+import { computed, onMounted, ref, watch } from "vue"
 import { useI18n } from 'vue-i18n'
 import OverlayPanel from "primevue/overlaypanel"
-import type {EvaluationResultsDocumentWide, EvaluationRun, TimelineChartDataPoint} from "@/types"
+import type { EvaluationResultsDocumentWide, EvaluationRun, TimelineChartDataPoint } from "@/types"
 import { metricChartTooltipContent } from "@/helpers/metric-chart-tooltip-content"
 import BaseTimelineChart from "@/components/workflows/timeline/BaseTimelineChart.vue"
 import BaseTimelineDetailedChart from "@/components/workflows/timeline/BaseTimelineDetailedChart.vue"
@@ -38,14 +38,14 @@ function init() {
 function getTimelineData(runs: EvaluationRun[], metric: string): TimelineChartDataPoint[] {
   const datesValues = runs.reduce((acc, cur) => {
     const date = new Date(new Date(cur.metadata.timestamp).setHours(0, 0, 0, 0)).toDateString()
-    const value = cur.evaluation_results.document_wide[<keyof EvaluationResultsDocumentWide>metric]
+    const value = cur.evaluation_results.document_wide[metric as keyof EvaluationResultsDocumentWide]
     if (!value || Array.isArray(value)) return acc
 
     if (!acc[date]) acc[date] = [value]
     else acc[date] = [...acc[date], value]
     return acc
   },
-  <{ [key: string]: number[] }>{})
+  {} as { [key: string]: number[] })
 
   return Object
     .keys(datesValues)
