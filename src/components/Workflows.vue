@@ -50,10 +50,16 @@
     }
 
     workflowsStore.runs = await api.getRuns()
+    workflowsStore.latestRuns = await api.getLatestRuns()
     workflowsStore.gt = await api.getGroundTruth()
     workflowsStore.workflows = await api.getWorkflows()
 
     workflowsStore.runs.forEach(run => {
+      const gtId = mapGtId(run.metadata.gt_workspace.id)
+
+      if (!workflowsStore.gt.find(gt => gt.id === gtId)) console.log(gtId)
+    })
+    workflowsStore.latestRuns.forEach(run => {
       const gtId = mapGtId(run.metadata.gt_workspace.id)
 
       if (!workflowsStore.gt.find(gt => gt.id === gtId)) console.log(gtId)
@@ -77,7 +83,7 @@
   </template>
   <template v-else>
     <div class="flex mb-6">
-      <p class="text-amber-600 flex-grow-0 px-4 py-2 bg-amber-100 rounded-md text-sm"><span class="font-semibold">Disclaimer:</span> This is an experimental view.</p>
+      <p class="text-amber-700 flex-grow-0 px-4 py-2 bg-amber-100 rounded-md text-sm"><span class="font-semibold">Disclaimer:</span> This is an experimental view.</p>
     </div>
     <WorkflowsIntroSection :page="<'timeline'|'table'>selectedOption.value" class="mb-6"></WorkflowsIntroSection>
     <div class="flex mb-6">

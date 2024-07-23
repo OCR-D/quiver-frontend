@@ -83,6 +83,7 @@
   "select_a_date_range": "Select a date range",
   "select_a_workflow": "Select a workflow",
   "select_a_processor": "Select a processor",
+  "keep_grouping_when_sorting": "Keep grouping when sorting",
   "select_a_label": "Select a label",
   "select_a_script_type": "Select a script-type",
   "no_labelling": "No labelling"
