@@ -3,7 +3,7 @@ import App from './App.vue'
 import router from './router'
 import PrimeVue from 'primevue/config'
 
-import 'primevue/resources/themes/lara-light-blue/theme.css'
+import 'primevue/resources/themes/tailwind-light/theme.css'
 import 'primeicons/primeicons.css'
 import './assets/main.css'
 import './assets/app.scss'
