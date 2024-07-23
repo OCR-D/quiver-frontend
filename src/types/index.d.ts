@@ -134,6 +134,11 @@ export interface FilterOption {
   label: string
 }
 
+export interface Release {
+  projects: string[],
+  tag: string
+}
+
 export interface ReleaseInfo {
   id: number,
   published_at: string,
@@ -163,4 +168,47 @@ export interface GroupedTableDataSubject {
     name: string
     value: number | number[] | null
   }[]
+}
+
+export interface Project {
+  additional_info: {
+    links: {
+      Dockerfile?: string
+      "README.md"?: string
+      "ocrd-tool.json"?: string
+      "setup.py"?: string
+    }
+  }
+  compliant_cli: boolean
+  dependencies: {
+    [package: string]: string
+  }
+  dependency_conflicts?: {
+    [package: string]: {
+      [package: string]: string
+    }
+  }
+  id: string
+  latest_version: string
+  ocrd_tool: {
+    git_url: string
+    tools: {
+      [ocrd_tool: string]: {
+        categrories: string[]
+        description: string
+        executable: string
+        input_file_grp: string[]
+        output_file_grp: string[]
+        parameters: any
+        steps: string[]
+      }
+    }
+    version: string
+  }
+  ocrd_tool_json_valid: boolean
+  official: boolean
+  org_plus_name: string
+  project_type: string
+  unreleased_changes: number
+  url: string
 }
