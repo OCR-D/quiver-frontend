@@ -75,7 +75,7 @@
   "url": "URL",
   "language": "Sprache | Sprachen",
   "script": "Skript | Skripte",
-  "scripttype": "Skript-Typ",
+  "script-type": "Skript-Typ",
   "license": "Lizenz | Lizenzen",
   "volume": "Umfang",
   "labelling": "Kennzeichnung",
