@@ -40,7 +40,7 @@ function getTimelineData(runs: EvaluationRun[], metric: keyof EvaluationResultsD
     const value = evaluation_results.document_wide[metric]
     return {
       date: new Date(metadata.timestamp),
-      value
+      value: value ?? 0
     }
   })
 }
