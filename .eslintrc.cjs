@@ -18,5 +18,8 @@ module.exports = {
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'semi': ['error', 'never'],
     'object-curly-spacing': ['error', 'always']
+  },
+  "env": {
+    "node": true
   }
 }
