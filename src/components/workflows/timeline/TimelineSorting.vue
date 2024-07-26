@@ -41,8 +41,8 @@ function updateSortedList(event: any) {
 
 </script>
 <template>
-  <div>
-    <p class="font-semibold mb-2">{{ t('sort_by')}}:</p>
+  <div class="flex flex-col items-start sm:flex-row sm:items-center">
+    <p class="font-semibold mb-2 sm:mr-4 sm:mb-0">{{ t('sort_by')}}:</p>
     <Dropdown
     v-model="selectedSortOption"
     @update:model-value="updateSortedList($event)"

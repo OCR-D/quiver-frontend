@@ -42,19 +42,22 @@ watch(selectedMetric,
 
 <template>
   <div class="flex flex-col">
-    <div class="flex mb-4 space-x-4 items-end justify-between">
+    <div class="flex mb-2 space-x-4 items-end justify-between">
       <TimelineSorting v-model="sortedGtList" :selectedMetric="selectedMetricValue"/>
-      <Dropdown
-        v-model="selectedMetric"
-        :options="metrics"
-        :pt="DropdownPassThroughStyles"
-        optionLabel="label"
-        placeholder="Select a metric"
-        class="grow-0"
-        unstyled
-      />
+      <div class="flex flex-col items-start sm:flex-row sm:items-center">
+        <p class="font-semibold mb-2 sm:mb-0 sm:mr-4">{{ t('metric') }}:</p>
+        <Dropdown
+          v-model="selectedMetric"
+          :options="metrics"
+          :pt="DropdownPassThroughStyles"
+          optionLabel="label"
+          placeholder="Select a metric"
+          class="grow-0"
+          unstyled
+        />
+      </div>
     </div>
-    <TrendLegend class="ml-auto mb-4"/>
+    <TrendLegend class="ml-auto"/>
     <TimelineFilters></TimelineFilters>
     <div class="flex flex-col space-y-6">
       <template v-if="sortedGtList.length > 0">
