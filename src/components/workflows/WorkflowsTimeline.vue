@@ -1,15 +1,15 @@
 <script setup lang="ts">
 import TimelineItem from "@/components/workflows/timeline/TimelineItem.vue"
 import Dropdown from 'primevue/dropdown'
-import { computed, onMounted, ref, watch} from "vue"
-import { EvaluationMetrics, getMaxValueByMetric} from '@/helpers/metrics'
+import { computed, onMounted, ref, watch } from "vue"
+import { EvaluationMetrics, getMaxValueByMetric } from '@/helpers/metrics'
 import { useI18n } from "vue-i18n"
 import type { DropdownOption, EvaluationResultsDocumentWide, Workflow, GroundTruth } from "@/types"
 import { DropdownPassThroughStyles } from '@/helpers/pt'
 import workflowsStore from '@/store/workflows-store'
 import filtersStore from '@/store/filters-store'
 import timelineStore from "@/store/timeline-store"
-import TrendLegend from "@/components/workflows/TrendLegend.vue";
+import TrendLegend from "@/components/workflows/TrendLegend.vue"
 import TimelineFilters from "./timeline/TimelineFilters.vue"
 
 const { t } = useI18n()
@@ -17,7 +17,7 @@ const gtList = computed<GroundTruth[]>(() => workflowsStore.gt.filter(({ id }) =
 const workflows = ref<Workflow[]>([])
 const selectedMetric = ref<DropdownOption | null>(null)
 const metrics = computed<DropdownOption[]>(() => Object.keys(EvaluationMetrics).map(key => ({ value: EvaluationMetrics[key], label: t(EvaluationMetrics[key]) })))
-const selectedMetricValue = computed<keyof EvaluationResultsDocumentWide>(() => <keyof EvaluationResultsDocumentWide>selectedMetric.value?.value || EvaluationMetrics.CER_MEAN)
+const selectedMetricValue = computed<keyof EvaluationResultsDocumentWide>(() => selectedMetric.value?.value as keyof EvaluationResultsDocumentWide || EvaluationMetrics.CER_MEAN)
 
 onMounted(async () => {
   selectedMetric.value = metrics.value[0]
