@@ -13,7 +13,7 @@ export default reactive<{
   latestRuns: EvaluationRun[],
   releases: ReleaseInfo[],
   getRuns: (gtId: string, workflowId?: string) => EvaluationRun[]
-  getLatestRuns: () => EvaluationRun[],
+  getLatestRuns: (gtId?: string) => EvaluationRun[],
   getGtById: (id: string) => GroundTruth | null
   getWorkflowById: (id: string) => Workflow | null
 }>({
@@ -33,8 +33,16 @@ export default reactive<{
         }
       )
   },
-  getLatestRuns() {
+  getLatestRuns(gtId?: string) {
+    if (gtId === undefined) {
+      return this.latestRuns
+    }
     return this.latestRuns
+      .filter(
+        ({ metadata }) => {
+          return mapGtId(metadata.gt_workspace.id) === gtId
+        }
+    )
   },
   getGtById(id: string): GroundTruth | null {
     return this.gt.find((item) => item.id === id) ?? null

@@ -82,5 +82,11 @@
   "select_a_date_range": "Select a date range",
   "select_a_workflow": "Select a workflow",
   "select_a_processor": "Select a processor",
-  "keep_grouping_when_sorting": "Keep grouping when sorting"
+  "keep_grouping_when_sorting": "Keep grouping when sorting",
+  "label_asc": "Label (a - z)",
+  "label_desc": "Label (z - a)",
+  "metric_desc": "Selected metric (descending)",
+  "metric_asc": "Selected metric (ascending)",
+  "year_asc": "Time period (oldest - latest)",
+  "year_desc": "Time period (latest - oldest)"
 }
