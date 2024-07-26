@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { watch, ref, onMounted } from "vue"
+import { computed, watch, ref, onMounted } from "vue"
 import { useI18n } from "vue-i18n"
 import { createReadableMetricValue, getEvalColor, mapGtId } from "@/helpers/utils"
 import type { EvalDefinitions, EvaluationResultsDocumentWide, EvaluationRun, GroupedTableData } from "@/types"
