@@ -192,7 +192,7 @@ export interface Project {
   }
   id: string
   latest_version: string
-  ocrd_tool: {
+  ocrd_tool?: {
     git_url: string
     tools: {
       [ocrd_tool: string]: {

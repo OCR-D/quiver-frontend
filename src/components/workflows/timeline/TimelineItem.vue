@@ -11,6 +11,7 @@ import { OverlayPanelDropdownStyles } from "@/helpers/pt"
 import workflowsStore from "@/store/workflows-store"
 import TimelineItemMetadata from "@/components/workflows/timeline/TimelineItemMetadata.vue"
 import filtersStore from "@/store/filters-store"
+import projectsStore from "@/store/projects-store"
 
 
 defineProps<{
@@ -21,6 +22,7 @@ defineProps<{
 const op = ref<OverlayPanel>()
 const isOpVisible = ref(false)
 const selectedStep = ref<WorkflowStep | null>(null)
+const selectedStepUrl = computed<string | null>(() => selectedStep.value ? getStepUrl(selectedStep.value) : null)
 const startDate = ref<Date>(new Date('2023-10-01'))
 const endDate = ref<Date>(new Date())
 
@@ -52,6 +54,12 @@ function toggleParameterOverlay(step: WorkflowStep, event: Event) {
   }
 }
 
+function getStepUrl(step: WorkflowStep) {
+  const repo = projectsStore.repos.find(({ ocrd_tool }) => {
+    return ocrd_tool && ocrd_tool.tools[step.id]
+  })
+  return repo?.url ?? null
+}
 
 </script>
 
@@ -154,7 +162,12 @@ function toggleParameterOverlay(step: WorkflowStep, event: Event) {
     @hide="isOpVisible = false"
   >
     <div class="flex flex-col pt-2">
-      <h2 class="font-bold px-2 pb-2 mb-2 border-b border-gray-300">{{ selectedStep?.id }}</h2>
+      
+      <a v-if="selectedStepUrl" class="font-bold px-2 pb-2 mb-2 border-b border-gray-300 flex items-center" :href="selectedStepUrl" target="_blank">
+        <Icon icon="mdi:github" class="text-2xl mr-1"/>
+        <span class="">{{ selectedStep?.id }}</span>
+      </a>
+      <h2 v-else class="font-bold px-2 pb-2 mb-2 border-b border-gray-300">{{ selectedStep?.id }}</h2>
       <div class="overflow-y-scroll max-h-[400px] w-full">
         <table v-if="selectedStep" class="text-sm border-collapse">
           <tr class="">
