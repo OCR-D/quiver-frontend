@@ -1,6 +1,6 @@
 <script setup lang="ts">
 withDefaults(defineProps<{
-  showTextColors: boolean
+  showTextColors?: boolean
 }>(), {
   showTextColors: true
 })

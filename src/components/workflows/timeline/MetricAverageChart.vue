@@ -65,39 +65,41 @@ function tooltipContent(d: TimelineChartDataPoint) {
 </script>
 
 <template>
-  <div @click="op?.toggle($event)" class="cursor-pointer flex">
-    <BaseTimelineChart
-      :data="data"
-      :max-y="maxY"
-      :start-date="startDate"
-      :end-date="endDate"
-      :tooltip-content="tooltipContent"
-      :width="400"
-      :higher-is-positive="isHigherPositive(metric)"
-    />
+  <div>
+    <div @click="op?.toggle($event)" class="cursor-pointer flex">
+      <BaseTimelineChart
+        :data="data"
+        :max-y="maxY"
+        :start-date="startDate"
+        :end-date="endDate"
+        :tooltip-content="tooltipContent"
+        :width="400"
+        :higher-is-positive="isHigherPositive(metric)"
+      />
+    </div>
+    <OverlayPanel
+      ref="op"
+      :pt="{
+        root: {
+          class: 'z-[1111] bg-white border rounded-md shadow-md p-5'
+        }
+      }"
+    >
+      <BaseTimelineDetailedChart
+        :data="data"
+        :max-y="maxY"
+        :y-axis-title="`${t(metric)} (${t(getUnitOfMetric(metric))})`"
+        :workflow="workflowName"
+        :label="gtName"
+        :start-date="startDate"
+        :end-date="endDate"
+        :tooltip-content="tooltipContent"
+        :height="400"
+        :width="660"
+        :higher-is-positive="isHigherPositive(metric)"
+      />
+    </OverlayPanel>
   </div>
-  <OverlayPanel
-    ref="op"
-    :pt="{
-      root: {
-        class: 'z-[1111] bg-white border rounded-md shadow-md p-5'
-      }
-    }"
-  >
-    <BaseTimelineDetailedChart
-      :data="data"
-      :max-y="maxY"
-      :y-axis-title="`${t(metric)} (${t(getUnitOfMetric(metric))})`"
-      :workflow="workflowName"
-      :label="gtName"
-      :start-date="startDate"
-      :end-date="endDate"
-      :tooltip-content="tooltipContent"
-      :height="400"
-      :width="660"
-      :higher-is-positive="isHigherPositive(metric)"
-    />
-  </OverlayPanel>
 </template>
 
 <style scoped lang="scss">

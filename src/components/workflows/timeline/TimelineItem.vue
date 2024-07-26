@@ -73,11 +73,11 @@ function toggleParameterOverlay(step: WorkflowStep, event: Event) {
       <div class="flex flex-col px-4 pb-2">
         <div class="flex items-center overflow-hidden">
           <h2 class="text-xl font-bold truncate mr-8" :title="gt.label">{{ gt.label }}</h2>
-          <a :href="gt.metadata.url" class="text-gray-500 hover:text-gray-600 flex-shrink-0 ml-auto mr-2 flex items-center bg-gray-100 rounded-full py-1 px-2">
+          <a :href="gt.metadata.url" class="text-gray-600 hover:text-gray-700 flex-shrink-0 ml-auto mr-2 flex items-center bg-gray-100 rounded-full py-1 px-2">
             <Icon icon="mdi:github" class="text-xl mr-1"/>
             <span class="text-xs">{{ gt.metadata.title }}</span>
           </a>
-          <a :href="gt.metadata.license[0].url" class="text-gray-500 hover:text-gray-600 flex-shrink-0 flex items-center bg-gray-100 rounded-full py-1 px-2">
+          <a :href="gt.metadata.license[0].url" class="text-gray-600 hover:text-gray-700 flex-shrink-0 flex items-center bg-gray-100 rounded-full py-1 px-2">
             <Icon icon="octicon:law" class="text-xl mr-1"/>
             <span class="text-xs">{{ gt.metadata.license[0].name }}</span>
           </a>
@@ -174,5 +174,6 @@ function toggleParameterOverlay(step: WorkflowStep, event: Event) {
 <style scoped lang="scss">
 .text-highlight:hover {
   color: var(--highlight-text-color);
+  background-color: var(--highlight-bg);
 }
 </style>

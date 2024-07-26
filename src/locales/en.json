@@ -1,4 +1,5 @@
 {
+  "details": "Details",
   "projects": "Projects",
   "processors": "Processors",
   "workflows": "Workflows",
@@ -80,5 +81,6 @@
   "filter_by_processor": "Filter by processor",
   "select_a_date_range": "Select a date range",
   "select_a_workflow": "Select a workflow",
-  "select_a_processor": "Select a processor"
+  "select_a_processor": "Select a processor",
+  "keep_grouping_when_sorting": "Keep grouping when sorting"
 }

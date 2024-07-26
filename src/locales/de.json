@@ -75,7 +75,7 @@
   "url": "URL",
   "language": "Sprache | Sprachen",
   "script": "Skript | Skripte",
-  "scripttype": "Skript-Typ",
+  "script-type": "Skript-Typ",
   "license": "Lizenz | Lizenzen",
   "volume": "Umfang",
   "labelling": "Kennzeichnung",
@@ -86,5 +86,6 @@
   "filter_by_processor": "Nach Prozessor filtern",
   "select_a_date_range": "Zeitraum auswählen",
   "select_a_workflow": "Workflow auswählen",
-  "select_a_processor": "Prozessor auswählen"
+  "select_a_processor": "Prozessor auswählen",
+  "keep_grouping_when_sorting": "Gruppierung beim Sortieren beibehalten"
 }
