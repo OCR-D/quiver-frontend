@@ -13,7 +13,7 @@ import TimelineItemMetadata from "@/components/workflows/timeline/TimelineItemMe
 import filtersStore from "@/store/filters-store"
 
 
-const props = defineProps<{
+defineProps<{
   gt: GroundTruth,
   metric: keyof EvaluationResultsDocumentWide
 }>()

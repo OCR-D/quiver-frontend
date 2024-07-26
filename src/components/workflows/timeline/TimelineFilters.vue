@@ -145,7 +145,7 @@ watch(() => filtersStore.gt, () => {
 })
 
 onMounted(() => {
-  workflowStepOptions.value = deduplicateStepIds(workflowsStore.workflows).map(id => ({ value: id, label: t(id) }))
+  workflowStepOptions.value = deduplicateStepIds(workflowsStore.workflows).map(id => ({ value: id, label: id }))
   
   selectedDateRange.value = dateRangeOptions.value
   selectedWorkflows.value = workflowOptions.value
