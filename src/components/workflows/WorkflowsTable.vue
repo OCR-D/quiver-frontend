@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { watch, ref, onMounted, computed } from "vue"
+import { watch, ref, onMounted } from "vue"
 import { useI18n } from "vue-i18n"
 import { createReadableMetricValue, getEvalColor, mapGtId } from "@/helpers/utils"
 import type { EvalDefinitions, EvaluationResultsDocumentWide, EvaluationRun, GroupedTableData } from "@/types"
@@ -9,6 +9,7 @@ import workflowsStore from "@/store/workflows-store"
 import api from "@/helpers/api"
 import filtersStore from "@/store/filters-store"
 import TrendLegend from "@/components/workflows/TrendLegend.vue"
+import { Icon } from '@iconify/vue'
 import WorkflowsTableSorter from "@/components/workflows/timeline/WorkflowTableSorter.vue"
 
 const { t } = useI18n()
@@ -166,11 +167,13 @@ const setSorted = (event: GroupedTableData, key: keyof EvaluationResultsDocument
             >
               {{ evalDefinitions[evalKey] ? evalDefinitions[evalKey].label : evalKey }}
             </WorkflowsTableSorter>
-            <i-icon name="ink-info"/>
             <div class="def-tooltip">
-              <div class="flex p-2 bg-white border rounded">
-                {{ evalDefinitions[evalKey] ? evalDefinitions[evalKey].short_descr : $t('no_description') }}.
-                <a v-if="evalDefinitions[evalKey]" :href="evalDefinitions[evalKey].url">{{ $t('details') }}</a>
+              <div class="flex p-2 bg-white border rounded space-x-2 items-start">
+                <span>{{ evalDefinitions[evalKey] ? evalDefinitions[evalKey].short_descr : $t('no_description') }}.</span>
+                <a v-if="evalDefinitions[evalKey]" :href="evalDefinitions[evalKey].url" class="flex items-center text-xs">
+                  <Icon icon="material-symbols:info-outline" class="mr-1"></Icon>
+                  <span>{{ $t('details') }}</span>
+                </a>
               </div>
             </div>
           </span>

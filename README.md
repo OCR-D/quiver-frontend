@@ -1,36 +1,57 @@
-# QUIVER
+# QuiVer Frontend
 
-This template should help get you started developing with Vue 3 in Vite.
+This is the frontend project for QuiVer. It's based on [Vue 3](https://vuejs.org/).
+QuiVer is an optical character recognition (OCR) benchmarking platform and part of the [OCR-D Project](https://ocr-d.de).
+This tool has a workflow view, which helps OCR-D users decide which workflow to use for their data by visualising metrics for predefined ground truth datasets.
+It also has a project view where OCR-D developers can get an overview of the projects and their status for each release.
 
-## Customize configuration
+It can be found under <https://ocr-d.de/quiver-frontend/>.
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+See also [QuiVer Benchmarks](https://github.com/OCR-D/quiver-benchmarks/) for more information about the benchmarking.
 
-## Project Setup
+## Setup
+
+Requires node version 16 or higher.
+
+Install dependencies:
 
 ```sh
 npm install
 ```
 
-### Compile and Hot-Reload for Development
+### Development
+
+Compile and run with hot-reload:
 
 ```sh
 npm run dev
 ```
 
-### Compile and Minify for Production
+Access under `http://localhost:5173/quiver-frontend/`
+
+### Production
+
+Compile and minify for production:
 
 ```sh
 npm run build
 ```
 
-### Lint with [ESLint](https://eslint.org/)
+Preview the production build:
+
+```sh
+npm run preview
+```
+
+### Linting
+
+We use [ESLint](https://eslint.org/) for linting. Check your code with:
 
 ```sh
 npm run lint
 ```
 
-## Project Setup with Docker
+## Setup with Docker
 
 Build the Docker image:
 

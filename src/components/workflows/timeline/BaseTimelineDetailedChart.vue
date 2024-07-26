@@ -213,7 +213,7 @@ function render([data, startDate, endDate, maxY]) {
       .attr('fill', colors.gray['600'])
       .style('cursor', 'pointer')
 
-    releaseGroup.on('mouseenter', function(e) {
+    releaseGroup.on('mouseenter', function() {
       this.parentElement.appendChild(this)
     })
   })
