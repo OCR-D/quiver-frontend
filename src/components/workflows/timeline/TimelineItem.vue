@@ -163,7 +163,7 @@ function getStepUrl(step: WorkflowStep) {
   >
     <div class="flex flex-col pt-2">
       
-      <a v-if="selectedStepUrl" class="font-bold px-2 pb-2 mb-2 border-b border-gray-300 flex items-center" :href="selectedStepUrl" target="_blank">
+      <a v-if="selectedStepUrl" class="font-bold px-2 pb-2 mb-2 border-b border-gray-300 flex items-center hover:underline underline-offset-2" :href="selectedStepUrl" target="_blank">
         <Icon icon="mdi:github" class="text-2xl mr-1"/>
         <span class="">{{ selectedStep?.id }}</span>
       </a>
