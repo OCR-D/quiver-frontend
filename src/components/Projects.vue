@@ -23,7 +23,7 @@
 <script setup>
 
 import { onMounted, ref } from "vue"
-import projectsStore from "@/store/projects-store";
+import projectsStore from "@/store/projects-store"
 import api from "@/helpers/api"
 import Project from "@/components/projects/Project.vue"
 
