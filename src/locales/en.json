@@ -93,5 +93,6 @@
   "year_desc": "Time period (latest - oldest)",
   "select_a_label": "Select a label",
   "select_a_script_type": "Select a script-type",
-  "no_labelling": "No labelling"
+  "no_labelling": "No labelling",
+  "no_results_found": "No results found."
 }
