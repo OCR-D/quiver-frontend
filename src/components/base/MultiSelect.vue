@@ -38,6 +38,9 @@ const dropdownLabel = computed(() => {
       <Icon v-show="allSelected" icon="prime:check" class="p-checkbox-icon h-5 w-5" data-pc-section="headercheckboxicon"/>
       <span :class="['ml-[7.5rem] absolute w-20 z-[1001]', allSelected ? 'text-highlight' : 'text-black']">{{ t('select_all') }}</span>
     </template>
+    <template v-for="(_, slot) in $slots" v-slot:[slot]="slotData">
+      <slot :name="slot" v-bind="slotData"></slot>
+    </template>
   </MultiSelect>
 </template>
 
