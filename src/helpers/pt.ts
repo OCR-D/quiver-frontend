@@ -12,6 +12,5 @@ const OverlayPanelDropdownStyles = {
 }
 
 export {
-  DropdownPassThroughStyles,
   OverlayPanelDropdownStyles
 }
