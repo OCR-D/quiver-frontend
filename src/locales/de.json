@@ -99,6 +99,7 @@
   "select_a_label": "Kennzeichnung auswählen",
   "select_a_script_type": "Skript-Typ auswählen",
   "no_labelling": "Keine Kennzeichnung",
+  "select_ground_truth": "Ground Truth auswählen",
   "filter_by": "Filtern nach",
   "metric": "Metric"
 }

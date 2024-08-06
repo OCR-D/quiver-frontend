@@ -100,7 +100,7 @@
 <script setup>
 import { ref, onMounted, watch } from "vue"
 import { useI18n } from "vue-i18n"
-import { store } from "@/helpers/store"
+import projectsStore from "@/store/projects-store"
 import { createReadableMetricValue, getEvalColor } from "@/helpers/utils"
 import Icon from "@/components/Icon.vue"
 
@@ -252,7 +252,7 @@ const setListData = (data) => {
 }
 
 const getRepoUrl = (needleId) => {
-  const repo = store.repos.find(({ ocrd_tool }) => {
+  const repo = projectsStore.repos.find(({ ocrd_tool }) => {
     return ocrd_tool && ocrd_tool.tools[needleId]
   })
   if (!repo) return null

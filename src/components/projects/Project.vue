@@ -1,6 +1,6 @@
 <script setup>
 import { computed, ref, watch } from "vue"
-import { store } from "@/helpers/store"
+import projectsStore from "@/store/projects-store"
 import Icon from "@/components/Icon.vue"
 import { useI18n } from "vue-i18n"
 import Button from "primevue/button"
@@ -13,7 +13,7 @@ const repo = ref(null)
 const op = ref(null)
 
 watch(() => props.id, (id) => {
-  repo.value = store.getRepoById(id)
+  repo.value = projectsStore.getRepoById(id)
 }, { immediate: true })
 
 const statusList = computed(() => {

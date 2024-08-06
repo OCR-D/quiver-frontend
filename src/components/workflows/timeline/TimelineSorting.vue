@@ -4,7 +4,6 @@ import { computed, ref, watch } from "vue"
 import Dropdown from "primevue/dropdown"
 import { GTTimelineSortingOptions, sortByOption } from "@/helpers/sorting"
 import { useI18n } from "vue-i18n"
-import { DropdownPassThroughStyles } from "@/helpers/pt"
 
 const { t } = useI18n()
 
@@ -41,15 +40,14 @@ function updateSortedList(event: any) {
 
 </script>
 <template>
-  <div class="flex flex-col items-start sm:flex-row sm:items-center">
+  <div class="flex flex-col items-start sm:flex-row sm:items-center w-full">
     <p class="font-semibold mb-2 sm:mr-4 sm:mb-0">{{ t('sort_by')}}:</p>
     <Dropdown
     v-model="selectedSortOption"
     @update:model-value="updateSortedList($event)"
     :options="sortOptions"
-    :pt="DropdownPassThroughStyles"
     option-label="label"
-    unstyled
+    class="w-full md:w-56"
     />
   </div>
 </template>

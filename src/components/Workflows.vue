@@ -12,6 +12,7 @@
   import filtersStore from "@/store/filters-store"
   import workflowsStore from "@/store/workflows-store"
   import type { ReleaseInfo } from "@/types"
+import projectsStore from "@/store/projects-store"
 
   const { t } = useI18n()
 
@@ -53,6 +54,7 @@
     workflowsStore.latestRuns = await api.getLatestRuns()
     workflowsStore.gt = await api.getGroundTruth()
     workflowsStore.workflows = await api.getWorkflows()
+    projectsStore.setRepos(await api.getProjects())
 
     workflowsStore.runs.forEach(run => {
       const gtId = mapGtId(run.metadata.gt_workspace.id)
