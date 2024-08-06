@@ -2,8 +2,11 @@
 import filtersStore from "@/store/filters-store"
 import workflowsStore from "@/store/workflows-store"
 import { computed, onMounted } from "vue"
-import MultiSelect from "primevue/multiselect"
+import BaseMultiSelect from "@/components/base/MultiSelect.vue"
 import type { FilterOption } from "@/types"
+import { useI18n } from "vue-i18n"
+
+const { t } = useI18n()
 
 const gtOptions = computed(() => workflowsStore.gt.map(({ id, label }) => ({ value: id, label })))
 
@@ -15,12 +18,11 @@ onMounted(() => {
 <template>
   <div class="flex items-center">
     <span class="font-semibold mr-4">{{ $t('documents')}} ({{ $t('ground_truth')}}):</span>
-    <MultiSelect
-        :model-value="filtersStore.gt"
+    <BaseMultiSelect
+        v-model="filtersStore.gt"
         @update:model-value="filtersStore.gt = $event"
         :options="gtOptions"
-        optionLabel="label"
-        placeholder="Select Ground Truth"
+        :placeholder="t('select_ground_truth')"
         panel-class="max-w-[500px]"
         :max-selected-labels="1"
         filter
@@ -29,7 +31,7 @@ onMounted(() => {
       <template #option="{ option }: { option: FilterOption }">
         <span class="truncate">{{ option.label }}</span>
       </template>
-    </MultiSelect>
+    </BaseMultiSelect>
   </div>
 
 </template>

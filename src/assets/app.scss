@@ -86,3 +86,10 @@ h3 {
 .p-overlaypanel .p-overlaypanel-content {
   padding: 0;
 }
+
+.p-dropdown:not(.p-disabled):hover {
+  border-color: var(--primary-color);
+}
+.p-multiselect:not(.p-disabled):hover {
+  border-color: var(--primary-color);
+}
