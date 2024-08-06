@@ -5,7 +5,6 @@ import { computed, onMounted, ref, watch } from "vue"
 import { EvaluationMetrics, getMaxValueByMetric } from '@/helpers/metrics'
 import { useI18n } from "vue-i18n"
 import type { DropdownOption, EvaluationResultsDocumentWide, Workflow, GroundTruth } from "@/types"
-import { DropdownPassThroughStyles } from '@/helpers/pt'
 import workflowsStore from '@/store/workflows-store'
 import filtersStore from '@/store/filters-store'
 import timelineStore from "@/store/timeline-store"
@@ -47,11 +46,9 @@ watch(selectedMetric,
       <Dropdown
         v-model="selectedMetric"
         :options="metrics"
-        :pt="DropdownPassThroughStyles"
         optionLabel="label"
         placeholder="Select a metric"
-        class="grow-0"
-        unstyled
+        class="w-full md:w-56"
       />
     </div>
     <TrendLegend class="ml-auto mb-4"/>

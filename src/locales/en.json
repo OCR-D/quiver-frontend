@@ -94,5 +94,6 @@
   "select_a_label": "Select a label",
   "select_a_script_type": "Select a script-type",
   "no_labelling": "No labelling",
+  "select_ground_truth": "Select Ground Truth",
   "no_results_found": "No results found."
 }
