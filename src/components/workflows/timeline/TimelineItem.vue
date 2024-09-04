@@ -23,6 +23,7 @@ const op = ref<OverlayPanel>()
 const isOpVisible = ref(false)
 const selectedStep = ref<WorkflowStep | null>(null)
 const selectedStepUrl = computed<string | null>(() => selectedStep.value ? getStepUrl(selectedStep.value) : null)
+const selectedStepVersion = computed<string | null>(() => selectedStep.value ? getStepVersion(selectedStep.value) : null)
 const startDate = ref<Date>(new Date('2023-10-01'))
 const endDate = ref<Date>(new Date())
 
@@ -56,9 +57,16 @@ function toggleParameterOverlay(step: WorkflowStep, event: Event) {
 
 function getStepUrl(step: WorkflowStep) {
   const repo = projectsStore.repos.find(({ ocrd_tool }) => {
-    return ocrd_tool && ocrd_tool.tools[step.id]
+    return ocrd_tool?.tools[step.id]
   })
   return repo?.url ?? null
+}
+
+function getStepVersion(step: WorkflowStep) {
+  const repo = projectsStore.repos.find(({ ocrd_tool }) => {
+    return ocrd_tool?.tools[step.id]
+  })
+  return repo?.ocrd_tool?.version ?? null
 }
 
 </script>
@@ -163,12 +171,13 @@ function getStepUrl(step: WorkflowStep) {
   >
     <div class="flex flex-col pt-2">
       
-      <a v-if="selectedStepUrl" class="font-bold px-2 pb-2 mb-2 border-b border-gray-300 flex items-center hover:underline underline-offset-2" :href="selectedStepUrl" target="_blank">
+      <a v-if="selectedStepUrl" class="font-bold px-2 pb-2 border-b border-gray-300 flex items-center hover:underline underline-offset-2" :href="selectedStepUrl" target="_blank">
         <Icon icon="mdi:github" class="text-2xl mr-1"/>
         <span class="">{{ selectedStep?.id }}</span>
       </a>
-      <h2 v-else class="font-bold px-2 pb-2 mb-2 border-b border-gray-300">{{ selectedStep?.id }}</h2>
-      <div class="overflow-y-scroll max-h-[400px] w-full">
+      <h2 v-else class="font-bold px-2 pb-2 border-b border-gray-300">{{ selectedStep?.id }}</h2>
+      <div v-if="selectedStepVersion" class="px-2 mt-1 text-sm">Version: {{ selectedStepVersion }}</div>
+      <div class="overflow-y-scroll max-h-[400px] w-full mt-2">
         <table v-if="selectedStep" class="text-sm border-collapse">
           <tr class="">
             <th class="p-1 pl-2 font-semibold">Parameter</th>
