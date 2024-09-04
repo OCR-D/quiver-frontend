@@ -163,7 +163,6 @@ onMounted(() => {
   <BaseMultiSelect
     v-model="selectedLabelling"
     @update:model-value="onLabellingChange($event)"
-    filter
     :max-selected-labels="0"
     :options="labellingOptions"
     :placeholder="t('select_a_label')"
@@ -196,7 +195,6 @@ onMounted(() => {
   <BaseMultiSelect
     v-model="selectedWorkflowSteps"
     @update:model-value="onWorkflowStepChange($event)"
-    filter
     :max-selected-labels="1"
     :options="workflowStepOptions"
     :placeholder="t('select_a_processor')"

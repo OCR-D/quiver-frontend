@@ -25,7 +25,6 @@ onMounted(() => {
         :placeholder="t('select_ground_truth')"
         panel-class="max-w-[500px]"
         :max-selected-labels="1"
-        filter
         class="relative flex-1"
     >
       <template #option="{ option }: { option: FilterOption }">
