@@ -57,14 +57,14 @@ function toggleParameterOverlay(step: WorkflowStep, event: Event) {
 
 function getStepUrl(step: WorkflowStep) {
   const repo = projectsStore.repos.find(({ ocrd_tool }) => {
-    return ocrd_tool && ocrd_tool.tools[step.id]
+    return ocrd_tool?.tools[step.id]
   })
   return repo?.url ?? null
 }
 
 function getStepVersion(step: WorkflowStep) {
   const repo = projectsStore.repos.find(({ ocrd_tool }) => {
-    return ocrd_tool && ocrd_tool.tools[step.id]
+    return ocrd_tool?.tools[step.id]
   })
   return repo?.ocrd_tool?.version ?? null
 }
