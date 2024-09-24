@@ -1,7 +1,7 @@
 import type { EvalDefinitions, EvaluationRun, GroundTruth, Project, Release, Workflow } from "@/types"
 
 const baseUrlOld = 'https://raw.githubusercontent.com/OCR-D/quiver-back-end/main/data'
-const baseUrl = 'https://quiver-dev.sub.uni-goettingen.de/api'
+const baseUrl = import.meta.env.VITE_BASE_API_URL
 async function getProjects(): Promise<Project[]> {
     return await request(baseUrlOld + '/repos.json')
 }
@@ -40,7 +40,7 @@ async function getLatestRuns(gtId?: string, workflowId?: string): Promise<Evalua
     path += '/latest'
     /*
     TODO: Remove flattening when bug in the backend is fixed.
-    Bug:  The data gets returned as an array of arrays that each contain a single object. 
+    Bug:  The data gets returned as an array of arrays that each contain a single object.
           It should have the same structure as the data at the /runs endpoint. (array of objects)
     Workaround:
           Flatten the returned list to match the data structure of the /runs endpoint.
