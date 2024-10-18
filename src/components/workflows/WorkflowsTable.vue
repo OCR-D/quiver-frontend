@@ -141,12 +141,15 @@ const setSorted = (event: GroupedTableData, key: keyof EvaluationResultsDocument
   </template>
   <template v-else>
     <div class="flex flex-col" v-if="Object.keys(tableData).length > 0">
-      <div class="flex items-center mb-4 ml-auto">
-        <label for="keepGroupsCheckbox" class="mr-2">{{ $t('keep_grouping_when_sorting') }}</label>
-        <Checkbox v-model="keepGroupsWhenSorting" input-id="keepGroupsCheckbox" binary class="mr-8"></Checkbox>
-        
-        <p class="mr-2">{{ $t('group_by') }}:</p>
-        <Dropdown v-model="groupBy" :options="groupingOptions" optionLabel="label" placeholder="Choose something.." class="" />
+      <div class="flex flex-col-reverse items-start sm:flex-row sm:items-center justify-between mb-4">
+        <div class="flex items-center">
+          <Checkbox v-model="keepGroupsWhenSorting" input-id="keepGroupsCheckbox" binary class=""></Checkbox>
+          <label for="keepGroupsCheckbox" class="pl-4 font-semibold cursor-pointer select-none">{{ $t('keep_grouping_when_sorting') }}</label>
+        </div>
+        <div class="flex flex-col items-start sm:flex-row sm:items-center mb-4 sm:mb-0">
+          <p class="font-semibold mb-2 sm:mb-0 sm:mr-4">{{ $t('group_by') }}:</p>
+          <Dropdown v-model="groupBy" :options="groupingOptions" optionLabel="label" placeholder="Choose something.." class="" />
+        </div>
       </div>
       <TrendLegend :show-text-colors="false" class="ml-auto mb-4"/>
     </div>

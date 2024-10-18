@@ -159,11 +159,11 @@ onMounted(() => {
 </script>
 
 <template>
+  <p class="font-semibold mb-2">{{ t('filter_by') }}:</p>
 <div class="pb-4 lg:pb-6 grid sm:grid-cols-2 gap-4 xl:grid-cols-5 xl:gap-8">
   <BaseMultiSelect
     v-model="selectedLabelling"
     @update:model-value="onLabellingChange($event)"
-    filter
     :max-selected-labels="0"
     :options="labellingOptions"
     :placeholder="t('select_a_label')"
@@ -196,7 +196,6 @@ onMounted(() => {
   <BaseMultiSelect
     v-model="selectedWorkflowSteps"
     @update:model-value="onWorkflowStepChange($event)"
-    filter
     :max-selected-labels="1"
     :options="workflowStepOptions"
     :placeholder="t('select_a_processor')"
