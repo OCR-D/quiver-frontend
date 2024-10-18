@@ -61,7 +61,10 @@ watch(selectedMetric,
         <TimelineItem v-for="gt in sortedGtList" :key="gt.id" :gt="gt" :metric="selectedMetricValue" />
       </template>
       <template v-else-if="workflowsStore.gt.length > 0 ">
-        <div class="my-6">{{ $t('no_documents_selected') }}</div>
+        <div class="my-6">
+          <span v-if="filtersStore.gt.length > 0">{{ t('no_results_found') }}</span>
+          <span v-else>{{ t('no_documents_selected') }}</span>
+        </div>
       </template>
       <template v-else>
         <div class="my-6">{{ $t('error_please_try_again_later') }}</div>
