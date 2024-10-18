@@ -16,8 +16,8 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="flex items-center">
-    <span class="font-semibold mr-4">{{ $t('documents')}} ({{ $t('ground_truth')}}):</span>
+  <div class="flex flex-col items-start md:flex-row md:items-center">
+    <p class="font-semibold mb-2 md:mb-0 md:mr-4">{{ $t('documents')}} ({{ $t('ground_truth')}}):</p>
     <BaseMultiSelect
         v-model="filtersStore.gt"
         @update:model-value="filtersStore.gt = $event"

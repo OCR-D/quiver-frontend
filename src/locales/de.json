@@ -81,11 +81,11 @@
   "labelling": "Kennzeichnung",
   "no_labels_for_this_entry": "Keine Kennzeichnung für diesen Eintrag.",
   "average_timeline": "Chronik (Durchschnitt)",
-  "filter_by_date_range": "Nach Zeitspanne filtern",
-  "filter_by_workflow": "Nach Workflow filtern",
-  "filter_by_processor": "Nach Prozessor filtern",
-  "filter_by_labelling": "Nach Kennzeichnungen filtern",
-  "filter_by_script_type": "Nach Skript-Typ filtern",
+  "filter_by_date_range": "Zeitspanne",
+  "filter_by_workflow": "Workflow",
+  "filter_by_processor": "Prozessor",
+  "filter_by_labelling": "Kennzeichnungen",
+  "filter_by_script_type": "Skript-Typ",
   "select_a_date_range": "Zeitraum auswählen",
   "select_a_workflow": "Workflow auswählen",
   "select_a_processor": "Prozessor auswählen",
@@ -99,5 +99,7 @@
   "select_a_label": "Kennzeichnung auswählen",
   "select_a_script_type": "Skript-Typ auswählen",
   "no_labelling": "Keine Kennzeichnung",
-  "select_ground_truth": "Ground Truth auswählen"
+  "select_ground_truth": "Ground Truth auswählen",
+  "filter_by": "Filtern nach",
+  "metric": "Metric"
 }
