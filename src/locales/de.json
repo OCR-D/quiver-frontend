@@ -101,5 +101,6 @@
   "no_labelling": "Keine Kennzeichnung",
   "select_ground_truth": "Ground Truth auswählen",
   "filter_by": "Filtern nach",
-  "metric": "Metric"
+  "metric": "Metrik",
+  "no_results_found": "Keine Ergebnisse gefunden."
 }
